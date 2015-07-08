@@ -1,0 +1,16 @@
+<ion-view view-title="任务">
+<ion-tabs class="tabs-top tabs-color-active-positive">
+  <!-- 任务 Tab -->
+  <ion-tab title="待完成" href="#/tab/task/unfinished">
+    <ion-nav-view name="tab-task-unfinished"></ion-nav-view>
+  </ion-tab>
+  <!-- 项目 Tab -->
+  <ion-tab title="已过期" href="#/tab/task/outdated">
+    <ion-nav-view name="tab-task-outdated"></ion-nav-view>
+  </ion-tab>
+  <!-- 客户 Tab -->
+  <ion-tab title="完成" href="#/tab/task/finished">
+    <ion-nav-view name="tab-task-finished"></ion-nav-view>
+  </ion-tab>
+</ion-tabs>
+</ion-view>

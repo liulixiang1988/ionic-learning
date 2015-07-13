@@ -11,7 +11,7 @@ app.config(function($stateProvider, $urlRouterProvider){
     }
   });
   $stateProvider.state('details', {
-    url: '/details',
+    url: '/home/details',
     views:{
       'tab-home':{
         templateUrl: 'templates/details.html'

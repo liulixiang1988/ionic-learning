@@ -1,0 +1,48 @@
+<ion-view view-title="我的同事">
+    <ion-header-bar class="bar-light bar-subheader" style="padding:0;">
+        <div class="bar bar-balanced  item-input-inset" style="border: 0; background: none;">
+            <label class="item-input-wrapper item-icon-left item-icon-red">
+                <i class="icon ion-search" style="font-size: 20px; margin-right: 20px;"></i>
+                <input class="light-bg" style="padding-left: 20px;" type="search" placeholder="搜索"
+                       ng-model="search"
+                       ng-focus="searchFocused = true"
+                       ng-blur="searchFocused = false"
+                       ng-change="scrollTop()">
+                <button ng-if="search.length"
+                        class="button button-icon ion-android-close input-button"
+                        ng-click="clearSearch()">
+                </button>
+            </label>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <ion-list >
+            <ion-item class="item   item-icon-right" href="#/bm">
+                 组织部
+                <span class="badge badge-positive">67</span>
+                <i class="icon ion-chevron-right"></i>
+                <ion-option-button class="button-positive">分享</ion-option-button>
+                <ion-option-button class="button-assertive">编辑</ion-option-button>
+            </ion-item>
+
+            <ion-item class="item   item-icon-right">
+               设计部
+                <span class="badge badge-positive">7</span>
+                <i class="icon ion-chevron-right"></i>
+                <ion-option-button class="button-positive">分享</ion-option-button>
+                <ion-option-button class="button-assertive">编辑</ion-option-button>
+            </ion-item>
+            <ion-item class="item   item-icon-right">
+               开发部
+                <span class="badge badge-positive">97</span>
+                <i class="icon ion-chevron-right"></i>
+                <ion-option-button class="button-positive">分享</ion-option-button>
+                <ion-option-button class="button-assertive">编辑</ion-option-button>
+            </ion-item>
+        </ion-list>
+
+
+    </ion-content>
+
+
+</ion-view>

@@ -100,13 +100,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-  .state('tab.colleague',{
+  .state('colleague',{
     url: '/colleague',
-    views: {
-      'tab-me':{
-        templateUrl: 'templates/my-colleague.html'
-      }
-    }
+    templateUrl: 'templates/my-colleague.html',
+    controller: 'ColleagueCtrl' 
+  })
+  .state('department',{
+    url: '/department',
+    templateUrl: 'templates/department.html',
+    controller: 'ColleagueCtrl' 
   });
 
   // if none of the above states are matched, use this as the fallback

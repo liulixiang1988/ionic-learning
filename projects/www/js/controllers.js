@@ -25,4 +25,10 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
+})
+
+.controller('ColleagueCtrl', function($scope, $ionicHistory){
+  $scope.goBack = function(){
+    $ionicHistory.goBack();
+  }
 });

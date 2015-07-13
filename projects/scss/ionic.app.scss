@@ -21,3 +21,63 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+/* Empty. Add your own CSS if you like */
+
+* { margin:0; padding:0; border:0;}
+a { text-decoration:none;}
+input,
+textarea { font-family:"微软雅黑"; color:#333;}
+.warrper { width:100%; font-family:"微软雅黑";}
+.margin-top-none { margin-top:0;}
+.ps { display:block; font-size:12px; color:#ccc; background:#EBEBEB; padding-bottom:12px; padding-left:5px;}
+a.code { font-size:12px; color:#333; width:100px; height:45px; line-height:45px; text-align:center; background:#CDCDCD; position:absolute; right:0; top:0;}
+
+.button.button-background-red { background:#FA7879; border:0;}
+.button.button-positive { font-size:16px; font-weight:bold; right:0;}
+.button-position-bottom { width:100%; padding-top:1px; padding-bottom:10px; background:#FFF; position:fixed; bottom:0; z-index:99;}
+.button-position-bottom .button-box { margin-left:10px; margin-right:10px; margin-top:-1px; height:44px;}
+.button-inset { margin:0 10px;}
+
+.drop-down-box { margin-bottom:10px;}
+.drop-down-list { border:1px solid #ddd; font-size:14px; margin:0 10px; margin-bottom:-1px; background:#FFF; border-top-left-radius:2px; border-top-right-radius:2px; padding:6px 0 5px 16px; position:relative;}
+.drop-down-list p { height:34px; line-height:34px; margin-bottom:0;}
+.drop-down-list .drop-down { position:absolute; top:16px; right:0;}
+
+.hide-box { display:none;}
+
+.list .font-size-big { font-size:16px; color:#333; font-weight:bold; margin-bottom:8px;}
+.list .font-size-small { font-size:14px; color:#999;}
+.list .name,
+.list .date { margin-right:15px;}
+.item-inset { margin-left:10px; margin-right:10px; margin-bottom:1px; padding-left:0; padding-right:0; border-left:0; border-right:0; border-top:0;}
+.item-a-right { padding-right:120px;}
+.item a.message,
+.item a.call { display:inline-block; width:44px; height:44px; position:absolute;}
+.item a.message { width:56px; right:65px; top:20px; border-right:1px solid #e4e4e4; padding-right:12px;}
+.item a.call { right:10px; top:20px;}
+.item a.message img,
+.item a.call img { width:100%; height:100%;}
+
+.ion-search { font-size:20px; color:#999; margin-right:8px;}
+.ion-android-apps-01 { font-size:20px; color:#FA7D7E; margin-right:8px;}
+.item-icon-right .icon-email-01 { right:82px; color:#06F;}
+.item-icon-right .ion-ios-telephone-01 { right:15px; color:#AFDF53;}
+.ion-ios-telephone-02,
+.ion-android-apps-01,
+.ion-android-unlock-01 { font-size:22px; color:#ccc; margin-right:15px;}
+
+.line { display:inline-block; width:1px; height:50%; background:#e4e4e4; position:absolute; top:25%; right:62px;}
+
+.num,
+.sp,
+.drop-down { display:inline-block;}
+.num img,
+.sp img,
+.search img,
+.drop-down img { width:100%; height:100%;}
+.num { width:16px; height:16px; margin-right:5px;}
+.sp { width:16px; height:13px; margin-right:5px;}
+.search { width:23px; height:23px; margin-right:8px;}
+.drop-down { width:21px; height:13px; margin-right:8px;}
+
+

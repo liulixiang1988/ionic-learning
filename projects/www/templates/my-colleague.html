@@ -1,4 +1,10 @@
-<ion-view view-title="我的同事">
+<ion-view>
+
+    <ion-nav-buttons side="primary">
+        <button class="button icon-left ion-chevron-left button-clear" ng-click="goBack()">我</button>
+        <h1 class="title">我的同事</h1>
+    </ion-nav-buttons>
+
     <ion-header-bar class="bar-light bar-subheader" style="padding:0;">
         <div class="bar bar-balanced  item-input-inset" style="border: 0; background: none;">
             <label class="item-input-wrapper item-icon-left item-icon-red">
@@ -17,7 +23,7 @@
     </ion-header-bar>
     <ion-content>
         <ion-list >
-            <ion-item class="item   item-icon-right" href="#/bm">
+            <ion-item class="item   item-icon-right" href="#/department">
                  组织部
                 <span class="badge badge-positive">67</span>
                 <i class="icon ion-chevron-right"></i>
@@ -43,6 +49,5 @@
 
 
     </ion-content>
-
 
 </ion-view>

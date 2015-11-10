@@ -1,0 +1,71 @@
+﻿/*左右结构*/
+.label-left{
+	color:#CF906E;
+	width:25%;
+	margin:8;
+}
+.label-right{
+	width:75%;
+}
+.label-input{
+	width:50%;
+	margin:4;
+}
+.label-input-btn{
+	width:20%;
+	padding:12 0;
+	margin:4 4 4 0;
+}
+
+/*九宫控件样式*/
+.grid{
+	cell-width:64;
+	icon-margin:8;
+}
+.grid-text{
+	cell-width:64;
+}
+.tip{
+	tip-background-image:url(res:image/button/tip.png);
+	tip-background-color:transparent;
+	tip-border-size:0;
+	tip-overlay:none;
+	ricontextcolor:#ffffff;
+}
+
+/*
+ *模板页仿九宫控件
+ */
+ /*分类标题*/
+.grid-title{
+	background-image:url(res:image/grid/grid_title.png);
+	width:72dp;
+	height:32dp;
+	color:#ffffff;
+	font-size:16dp;
+	text-valign:middle;
+}
+/*div仿grid控件样式*/
+.grid-cell{
+	width:33%;
+	background-color:black;
+	background-click-color:#ff8400;
+	background-opacity:0.5;
+	margin:4;
+	padding:4;
+	text-align:center;
+	text-valign:middle;
+	color:#ffffff;
+}
+.text{
+	font-size:20dp;
+	color:white;
+	height:20dp;
+	text-align:center;
+}
+.sndtext{
+	font-size:16dp;
+	color:#dbdbdb;
+	height:16dp;
+	text-align:center;
+}

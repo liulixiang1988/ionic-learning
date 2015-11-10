@@ -1,0 +1,98 @@
+<!-- HTML5文件 -->
+<!-- HTML5文件 -->
+<!DOCTYPE html>
+<html id="list">
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+</head>
+<body>
+
+
+<!-- 内容  -->
+<div id="section_container">
+	<section id="mail_section" class="active">
+	    <header class="bar bar-nav">
+	        <!--a class="icon icon-left-nav pull-left" data-target="close" href="#"></a-->
+	       <a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+		    <h1 class="title" id="nbt">待办事宜</h1>
+	    </header>
+	    <article class="active" id="news_article"  data-scroll="true">
+	        <div class="scroller">
+	            <ul class="table-view animated fast fadeInRight">
+	            <div id="task">
+	            <script type="text/html" id="task_template">
+	            <%
+	            	for(var i=0;i<(ds.ds||[]).length;i++)
+	            	{
+	            %>
+				  <li class="table-view-cell media">
+				    <!--a class="" style="padding-right: 10px;" onclick="$native.alert('本版本暂不支持事务办理，该功能将在后续版本中推出。');"-->
+				    <a class="" style="padding-right: 10px;" href="<%=ds.ds[i].url%>?messageid=<%=ds.ds[i].messageid%>" data-target="exmobi">
+                    	<font class="media-object pull-left iconoutline iconoutline-round DodgerBlue" style="font-size:10px;margin-top:6px;"></font>
+				      	<div class="media-body">
+				        <div style="font-size:16px"><%=ds.ds[i].subject%></div>                      
+				        <!--p>发布人：<%=ds.ds[i].lastmodifyusername%><font class="iconoutline  LightGray" style="font-size:14px;vertical-align:middle;"></font><--><div><font style="float:left; color:green">[<%=ds.ds[i].syscode%>,<%=ds.ds[i].businessname%>]<%=ds.ds[i].nodename%>,<%=ds.ds[i].sendtime%></font></div>
+				      </div>
+				    </a>
+				  </li>	
+				  <%
+				  }
+				  %>
+				 </script>
+			   </div>		
+				</ul>                 
+	        </div>
+	    </article>        
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script type="text/javascript" src="../../script/app/tgit.js"></script>
+<script>
+$('#news_article').on('articleload',loadtask);
+function loadtask(){
+$util.server({
+url : 'http://dbsy.jsp',
+type : 'post',
+data : '',
+dataType : 'json',
+success : function(data){
+   if("error" in data)
+  {
+	errormsg(data.error);
+  }
+ else
+ {
+ A.tmpl("#task","task_template",data,"replace");
+ }
+},
+error : function(data){
+errorconfirm('会话过期，请重新登录');
+},
+isBlock:true
+});}
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+</head>
+<body>
+
+<div id="section_container">
+	<section id="mail_contact_section" data-transition="cover" class="active">
+	    <header class="bar bar-nav">
+	       	<a data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">取消</font></a>
+	      	<a class="pull-right" data-target="close" href="#" onclick="setusers()"><font class="icon">添加</font></a>
+		    <h1 class="title">OA用户选择</h1>
+	    </header>
+        <div class="bar bar-standard bar-header-secondary" style="background-color:#f2f2f2;border-bottom:1px solid #f2f2f2; align:left">
+		   <!--input type="search" placeholder="搜索" style="width:70%;"-->
+		   
+		   <div id="divdep" style="width:90%;font-size:12px;"></div>
+		  
+           <input type="checkbox" style="position:absolute;right:8px;top:50%;-webkit-transform:translateY(-50%);" onClick="selAll(this)" id="selall"/>
+	    </div>
+	    <article class="active" id="dep_list_article"  data-scroll="true">
+	        <div class="scroller">
+	            <ul class="table-view animated fast fadeInRight">
+	            <div id="oausers">
+	            <script type="text/html" id="users_template">
+	            <%
+	            for(var i=0;i<(ds.ds||[]).length;i++)
+	            {
+	            %>
+				  <li class="table-view-cell media">
+				    <a>
+                    	<div class="media-object pull-left wmz-list-left-squre">
+                            <span class="icon icomoon-user5" style="color:white;"></span>
+                        </div>
+				      	<div class="media-body">
+                            <%=ds.ds[i].username%>
+                            <p><%=ds.ds[i].depname%></p>
+                         </div>
+				    </a>
+                    <input type="checkbox" class="wmz-list-right-cbo" value="<%=ds.ds[i].uid%>;<%=ds.ds[i].username%>" name="wmzcbo"/>
+				  </li>	
+				  <%
+				  }
+				  %>
+				  </script>
+				 </div> 			  
+				</ul>
+	        </div>
+	        
+	      
+	        <script type="text/html" id="divdep_template">		   
+						<select id="org" name="org" onchange="getorguser()">
+							<option value="00">--请选择部门--</option>
+			<%
+		   for(var i=0;i<(ds.ds||[]).length;i++)
+		   {
+		   %>
+						  	<option value="<%=ds.ds[i].depcode%>"><%=#ds.ds[i].depname%></option>						  	
+			<%
+			}
+			%>	
+						</select>					
+		</script>
+		
+	    </article>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script>
+
+$('#dep_list_article').on('articleload',function(){
+$util.server({
+url : 'http://oadep.jsp',
+type : 'post',
+data : '',
+dataType : 'json',
+success : function(data){
+//alert(data);
+if(data.error==null)
+{
+ A.tmpl("#divdep","divdep_template",data,"replace");
+}
+else
+{
+A.alert('铜冠移动OA',"会话过期，请重新登录");
+}
+ //alert("123");
+},
+error : function(data){
+A.alert('铜冠移动OA','请求数据异常');
+}
+});});
+
+		function selAll(obj){
+			var wmzcbos=document.getElementsByName("wmzcbo");
+			if(obj.checked==true){
+				for(var i=0;i<wmzcbos.length;i++){
+					wmzcbos[i].checked=true;
+				}
+			}else{
+				for(var i=0;i<wmzcbos.length;i++){
+					wmzcbos[i].checked=false;
+				}
+			}
+		}
+		function getorguser()
+		{
+			var selorg=document.getElementById("org");
+			//alert(selorg.value);
+			
+			//$('#org option:selected') .val();/
+			//alert("12355");
+				$util.server({
+			url : 'http://oadepusers.jsp',
+			type : 'post',
+			data : 'depcode='+selorg.value+'&keywords=',
+			dataType : 'json',
+			success : function(data){
+			alert(data);
+			A.tmpl("#oausers","users_template",data,"replace");
+			 //alert("123");
+			},
+			error : function(data){
+			alert(data);
+			alert('请求数据异常');
+			}
+			});
+		}
+		function setusers()
+		{
+		    var returnusers="";
+		    var returnuid="";
+			var userarr=document.getElementsByName("wmzcbo");
+			for(var i=0;i<userarr.length;i++)
+			{
+				if(userarr[i].checked)
+				{
+				//选择			
+				
+					if(returnusers=="")
+					{
+					returnusers=userarr[i].value.split(';')[1];
+					returnuid=userarr[i].value.split(';')[0];
+					}
+					else 
+					{
+					returnusers=returnusers+","+userarr[i].value.split(';')[1];
+					returnuid=returnuid+","+userarr[i].value.split(';')[0];
+					}
+				}
+			}
+			$native.toast(returnuid);
+			//location.href="mail_write.html?username="+returnusers+"&uid="+returnuid;
+			//ts();
+			document.getElementById("to").value="222";
+		}
+		
+
+</script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/agile/css/app.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+    <style>
+    	body {
+    		font-size:12px;
+    	}
+    	.scroller {
+    		padding:15px;
+    	}
+    	.news-title {
+    		width:100%;
+    		font-size:14px;
+    		margin-bottom:10px;
+    	}
+    	.author {
+    		font-style: italic;
+    		float:left;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.date {
+    		font-style: italic;
+    		float:right;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.news-content {
+    		margin-top:5px;
+    		width:100%;
+    	}
+    	.news-content img {
+    		width:100%;
+    	}
+    	.divbottom
+    	{
+    	border-bottom:0px dashed gray;
+    	
+    	}
+    	.divbottom2
+    	{
+    	border-bottom:1px dashed black;
+    	
+    	}
+    </style>
+</head>
+<body class="bodysize">
+<div id="section_container">
+    <section id="layout_section" class="active">
+        <header class="bar bar-nav">
+			<a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+		    <h1 class="title">一周工作安排</h1>
+	    </header>
+		<article id="gzap_article" class="active">
+		  
+		      <div id="gzapdiv">
+		      	<script type="text/javascript" id="gzap_template">
+		      	<%
+		      
+		      	var ttrq="";
+		      	var nextrq="";
+		      	 for(var i=0;i<(WorkPlan||[]).length;i++)
+		      	 {	
+		      	 	if(i<(WorkPlan||[]).length-1)
+		      	 	{
+		      	 	 nextrq=WorkPlan[i+1].RQ;
+		      	 	}
+		      	 	else
+		      	 	{
+		      	 	  nextrq="";
+		      	 	}      	 
+		      	 	
+		      	  %>
+		      	  <%
+		      	  if (WorkPlan[i].RQ!=ttrq)
+		      	  {
+		      	  %>
+	        	<div class="card">
+	        	<div id='divhead<%=i%>' onClick="showdiv('<%=i%>')">
+	        	<div  style="width:85%; line-height:45px; float: left;padding-left: 8px;height:45px">
+				     <!--font style="font-weight:bold">日期：</font-->  <%=WorkPlan[i].RQ%>			        												
+			        </div>	
+			        <div  style="width:15%; float: right;line-height:45px;">
+				        <div class="icon icon-down-nav" style="line-height:45px; align:right;"></div>			        												
+			        </div>
+			        </div>
+			         <div id="div<%=i%>" style="display:<%=WorkPlan[i].TS%>;background-color:#b0e0e6">
+		        <%
+		          }		          		          
+		        %>					
+			       
+			        <div style="line-height:25px; padding-left: 8px;" class="divbottom">
+			       <font style="font-weight:bold">时间：</font> <%=WorkPlan[i].SJ%>	</div>
+			   <div style="line-height:25px; padding-left: 8px;" class="divbottom">	
+			       <font style="font-weight:bold">主题： <%=WorkPlan[i].SWZT%>	</font></div>
+			    <div style="line-height:25px; padding-left: 8px;" class="divbottom">   
+			      <font style="font-weight:bold">人员：</font>  <%=#WorkPlan[i].RY%></div>
+	        	<%
+	        	if (WorkPlan[i].RQ!=nextrq)
+		      	  {
+		      	  %>
+		      <div style="line-height:25px; padding-left: 8px;"><font style="font-weight:bold">地点：</font> <%=WorkPlan[i].DD%>     </div>
+	        	</div>
+	        	</div>
+	        	<%
+	        	}
+	        	else
+	        	{
+	        	%>
+	        	<div style="line-height:35px; padding-left: 8px;" class="divbottom2"><font style="font-weight:bold">地点：</font> <%=WorkPlan[i].DD%>     </div>
+	        	<%
+	        	}
+	        	ttrq=WorkPlan[i].RQ;	        	
+	        	}
+	        	%>
+	        	</script>
+	        	</div>
+	        	
+	    </article><!-- /.content -->
+    </section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script>
+
+$('#gzap_article').on('articleload',function(){
+
+$util.server({
+url : 'http://gzap.jsp',
+type : 'post',
+data : 'classid='+$native.getParameter('classid'),
+dataType : 'json',
+success : function(data){
+//var mydate=new Date();
+//var mrq=(mydate.getMonth()+1)+"月"+mydate.getDate()+"日"
+//alert(mrq);
+//alert(data.WorkPlan.WorkPlan.length);
+var uname=ExMobiWindow.getStringSession("uname");
+for(var i=0;i<data.WorkPlan.WorkPlan.length;i++)
+{
+	var ry=data.WorkPlan.WorkPlan[i].RY;
+	if(ry.indexOf(uname)!=-1)
+	{
+	data.WorkPlan.WorkPlan[i].RY=ry.replace(uname,"<font color=red style='background-color:yellow'>"+uname+"</font>");
+	}
+}
+ A.tmpl("#gzapdiv","gzap_template",data.WorkPlan,"replace");
+ 
+
+},
+error : function(data){
+
+ExMobiWindow.alert('会话过期，请重新登录');
+},
+isBlock:true
+});});
+var currentshowdiv="";
+function showdiv(divid){
+	//alert(divid);
+	var clickdivid="div"+divid
+	var obj=document.getElementById(clickdivid);		
+		if(obj.style.display=="none"){
+			if(currentshowdiv!=""){
+				document.getElementById("div"+currentshowdiv).style.display="none";
+			}
+			obj.style.display="";
+			currentshowdiv=divid;
+			
+		}else if(obj.style.display=="block"||obj.style.display==""){
+			currentshowdiv="";
+			obj.style.display="none";
+		}	
+	
+}
+</script>
+
+</body>
+</html>

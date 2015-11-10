@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+<style>
+
+
+</style>
+</head>
+<body>
+<!-- 侧边栏 -->
+<div id="aside_container">
+	<aside id="aside_right" data-position="right" data-transition="push" style="background: -webkit-linear-gradient(-45deg, #1b63ab 0%,#0e4882 75%);">
+	    <div class="center">
+	        <ul class="menu">
+	        	<li style="color:white;text-align:center;">
+	            	<div style="border-radius:30px;width:60px;height:60px;overflow:hidden;background:url(../../image/user/photo.png) center center;background-size:100% 100%;position:absolute;top:8px;left:50%;-webkit-transform:translateX(-50%)"></div>
+	                <p style="margin:78px 0 0 0;display:block;color:white;font-size:18px;">张三</p>
+	                <p style="margin:0 0 8px 0;display:block;color:rbga(255,255,255,.7);">关员号：1001</p>
+	            </li>
+	            <li class="wmz-slide-list"><a href="#" onclick="$native.toast('离线版暂不支持此功能')"><div class="wmz-round-btn"><img src="../../image/user/notice.png" class="wmz-side-img"/></div><span>公告收藏</span></a></li>
+	            <li class="wmz-slide-list"><a href="#" onclick="$native.toast('离线版暂不支持此功能')"><div class="wmz-round-btn"><img src="../../image/user/doc.png" class="wmz-side-img"/></div><span>公文收藏</span></a></li>
+	            <li class="wmz-slide-list"><a href="#" onclick="$native.toast('离线版暂不支持此功能')"><div class="wmz-round-btn"><img src="../../image/user/contact.png" class="wmz-side-img"/></div><span>通讯录收藏</span></a></li>
+	        </ul>
+	    </div>
+	</aside>
+</div>
+<!-- 主页  -->
+<div id="section_container">
+	<section id="main_section" class="active" data-article-slider="true" data-pageload="doBtnHide()" data-aside-right="#aside_right">
+	    <header class="bar bar-nav">
+	      	<a class="icon icon-left-nav pull-left" data-target="native" href="#index"></a>
+		  	<a class="icon icon-person pull-right" data-target="aside" href="#aside_right"></a>
+	      	<h1 class="title">主页</h1>
+	    </header>
+	    
+	    <article id="banner_article" class="active" data-scroll="true" data-articleload="doBannerArticleLoad()">    
+	    	<div class="scroller">
+		    	<div id="slider_banner" class="sliding_container animated fast fadeInDown" data-role="banner">
+			    	<div style="height:170px;overflow:hidden;">
+			        	<div style="text-align: center"><img src="../../image/main/img01.jpg" onclick="$native.toast(1)" class="full-width"></div>
+			            <div style="text-align: center"><img src="../../image/main/img02.jpg" onclick="$native.toast(2)" class="full-width"></div>
+			            <div style="text-align: center"><img src="../../image/main/img03.jpg" onclick="$native.toast(3)" class="full-width"></div>
+			        </div>
+			    </div>
+			    <a class="wmz-amenu-notice animated fast fadeInLeft one" id="grid1" href="#notice" data-target="native">
+                	<img src="../../image//main/notice.png" alt="" style="width:100%"/>
+                    <div style="position:absolute;bottom:10px;left:10px;">
+                    	公告
+                    </div>
+                </a>
+                <div style="width:40%;height:200px;float:left;" id="grid2">
+                    <a class="wmz-amenu-doc animated fast fadeInRight two" href="#doc" data-target="native">
+                        <img src="../../image//main/doc.png" alt="" style="width:64px;"/>
+                        <br/>
+                        公文
+                    </a>
+                    <a class="wmz-amenu-leave animated fast fadeInRight three" href="#leave" data-target="native">
+                        <img src="../../image//main/write.png" alt="" style="width:64px;"/>
+                        <br/>
+                        请假审批
+                    </a>
+                </div>
+                <a class="wmz-amenu-contact animated fast fadeInUp four" id="grid3" href="#contact" data-target="native">
+                	<img src="../../image//main/contact.png" alt="" style="width:64px;"/>
+                    <br/>
+                    通讯录
+                </a>
+                <a class="wmz-amenu-mail animated fast fadeInUp five" id="grid4" href="#mail" data-target="native" >
+                	<div style="position:absolute;left:10px;top:10px;">
+                    	<img src="../../image//main/mail.png" alt="" style="width:64px;"/>
+                    </div>
+                    <div style="position:absolute;right:10px;bottom:10px;color:white;text-align:right;">
+                        邮件
+                    </div>
+                </a>
+		    </div>
+	    </article>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script>
+function doBannerArticleLoad(){
+	var label;
+	var newsTitle=["办公还有新玩法？","我关召开领导干部大会","新型办公系统正上线"];
+	var bannerSlider = new A.Slider({
+		                selector : '#slider_banner',
+		                speed : 500,
+		                onBeforeSlide : function(){
+		                    return true;
+		                },
+		                onAfterSlide : function(i){
+		                	
+		                	if(!label){
+		                		label = $('#slider_banner').append('<div class="slider_label"></div>').find('div.slider_label');
+		                	}
+		                	//alert(label.html());
+		                	label.html(newsTitle[i]);
+		                }
+		            });
+    $('#slider_prev').click(function(){bannerSlider.prev(); return false;});
+    $('#slider_next').click(function(){bannerSlider.next(); return false;});
+}
+$('.animated').bind('webkitAnimationEnd', function(){
+	$(this).removeClass('animated flipInX');
+});
+function initGrid(){
+	var gridHeight=Math.floor($(window).height()-$("header").height()-$("#slider_banner").height());
+	$("#grid1,#grid2").height(Math.floor(gridHeight*0.61)+"px");
+	$("#grid3,#grid4").height(Math.floor(gridHeight*0.39)+"px");
+}
+
+initGrid();
+
+</script>
+</body>
+</html>

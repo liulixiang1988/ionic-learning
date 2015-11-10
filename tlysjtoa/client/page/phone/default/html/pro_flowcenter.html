@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+</head>
+<body>
+
+<div id="section_container">
+	<section id="page_section" class="active">
+	    <header class="bar bar-nav">
+	      	<a class="icon icon-left-nav pull-left" data-target="close" href="#"></a>
+	      	<h1 class="title">公文</h1>
+	    </header>
+	    <!-- 页签栏 -->
+	    <div class="bar bar-standard bar-header-secondary">
+		    <div class="segmented-control" data-role="slider-bar" style="top:0;-webkit-box-sizing:border-box;border-radius:0;">
+				<a class="wmz-tab-slide active" href="#page1" data-target="sliderPage">待办事务</a>
+				<a class="wmz-tab-slide" href="#page2" data-target="sliderPage">已办事务</a>
+				<a class="wmz-tab-slide" href="#page3" data-target="sliderPage">其它</a>
+			</div>
+		</div>
+		<!-- 内容 -->
+		<article id="page_article" class="active" data-slider-page="true">
+			<div id="page1" data-role="slider-page">
+				<div class="scroller">
+					<ul class="table-view">
+	                  <li class="table-view-cell media">
+	                    <a class="navigate-right" data-target="native" href="#doc_detail">
+	                      <span class="media-object pull-left iconoutline iconoutline-bumf"></span>
+	                      <div class="media-body">
+	                        收文1
+	                      </div>
+	                    </a>
+	                  </li>
+	                  <li class="table-view-cell media">
+	                    <a class="navigate-right" data-target="native" href="#doc_detail">
+	                      <span class="media-object pull-left iconoutline iconoutline-bumf"></span>
+	                      <div class="media-body">
+	                        收文2
+	                      </div>
+	                    </a>
+	                  </li>
+	                  <li class="table-view-cell media">
+	                    <a class="navigate-right" data-target="native" href="#doc_detail">
+	                      <span class="media-object pull-left iconoutline iconoutline-bumf-attach"></span>
+	                      <div class="media-body">
+	                        收文3
+	                      </div>
+	                    </a>
+	                  </li>
+	                  <li class="table-view-cell media">
+	                    <a class="navigate-right" data-target="native" href="#doc_detail">
+	                      <span class="media-object pull-left iconoutline iconoutline-bumf-attach"></span>
+	                      <div class="media-body">
+	                        收文4
+	                      </div>
+	                    </a>
+	                  </li>
+	                  <li class="table-view-cell media">
+	                    <a class="navigate-right" data-target="native" href="#doc_detail">
+	                      <span class="media-object pull-left iconoutline iconoutline-bumf"></span>
+	                      <div class="media-body">
+	                        收文5
+	                      </div>
+	                    </a>
+	                  </li>
+	                </ul>
+				</div>
+			</div>
+			<div id="page2" data-role="slider-page" data-scroll-orientation="vertical">
+				<div class="scroller">
+					<ul class="table-view">
+	                  <li class="table-view-cell media">
+	                    <a class="navigate-right" data-target="native" href="#doc_detail">
+	                      <span class="media-object pull-left iconoutline iconoutline-bumf"></span>
+	                      <div class="media-body">
+	                        发文1
+	                      </div>
+	                    </a>
+	                  </li>
+	                  <li class="table-view-cell media">
+	                    <a class="navigate-right" data-target="native" href="#doc_detail">
+	                      <span class="media-object pull-left iconoutline iconoutline-bumf"></span>
+	                      <div class="media-body">
+	                        发文2
+	                      </div>
+	                    </a>
+	                  </li>
+	                </ul>
+				</div>
+			</div>
+			<div id="page3" data-role="slider-page" data-scroll-orientation="vertical">
+				<div class="scroller">
+					<ul class="table-view">
+	                  <li class="table-view-cell media">
+	                    <a class="navigate-right" data-target="native" href="#doc_detail">
+	                      <span class="media-object pull-left iconoutline iconoutline-bumf"></span>
+	                      <div class="media-body">
+	                        发文1
+	                      </div>
+	                    </a>
+	                  </li>
+	                  <li class="table-view-cell media">
+	                    <a class="navigate-right" data-target="native" href="#doc_detail">
+	                      <span class="media-object pull-left iconoutline iconoutline-bumf"></span>
+	                      <div class="media-body">
+	                        发文2
+	                      </div>
+	                    </a>
+	                  </li>
+	                </ul>
+				</div>
+			</div>
+	    </article>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+</body>
+</html>

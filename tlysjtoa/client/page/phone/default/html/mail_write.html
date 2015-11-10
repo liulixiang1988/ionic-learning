@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+</head>
+<body>
+
+<div id="section_container">
+	<section id="mail_write_section" class="active">
+	<header class="bar bar-nav">
+		<a class="icon iconoutline-send pull-right" id="btn_send"></a>
+	    <a class="icon icon-left-nav pull-left" data-target="close" href="#"></a>
+	    <h1 class="title">新建工作联系</h1>
+	</header>
+	
+	<article class="active" id="mainart" data-scroll="true">
+		<div class="scroller">
+	        <form class="input-group">
+	          <div data-role="icon">
+              	<input type="text" id="to" placeholder="发送至:" readonly="readonly">
+                <font class="btn-add" data-target="section" href="#mail_contact_section"></font>
+                <input type="hidden" id="uid">
+              </div>              
+	          <input type="text" id="subject" placeholder="标题:">
+	          <textarea rows="20" id="content" placeholder="内容:" style="border-bottom:1px solid white;"></textarea>	         
+	          <div data-role="file">
+				  		<label>请选择文件</label>
+				  		<input name="file" type="hidden">
+				  	</div>
+	        </form>	        
+	    </div>
+	</article>	
+</section>
+    <section id="mail_contact_section">
+	    <header class="bar bar-nav">
+	       	<a data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">取消</font></a>
+	      	<a class="pull-right" data-target="section" href="mail_write_section" onclick="setusers()"><font class="icon">添加</font></a>
+		    <h1 class="title">OA用户选择</h1>
+	    </header>
+        <div class="bar bar-standard bar-header-secondary" style="background-color:#f2f2f2;border-bottom:1px solid #f2f2f2; align:left">
+		   <!--input type="search" placeholder="搜索" style="width:70%;"-->
+		   
+		   	<div id="divorg" style="width:90%;font-size:12px;">
+		   	<script type="text/html" id="divdep2_template">		   
+						<select id="org" name="org" onchange="getorguser()">
+							<option value="00">--请选择部门--</option>
+			<%
+		   for(var i=0;i<(ds.ds||[]).length;i++)
+		   {
+		   %>
+						  	<option value="<%=ds.ds[i].depcode%>"><%=#ds.ds[i].depname%></option>						  	
+			<%
+			}
+			%>	
+						</select>	
+			<input type="checkbox" style="position:absolute;right:8px;top:50%;-webkit-transform:translateY(-50%);" onClick="selAll(this)" id="selall"/>										
+		</script>
+		   	</div>	
+           
+	    </div>
+	  <article class="active" data-scroll="true" id="mail_address">
+	         
+	         <div class="scroller"> 
+	           	         
+	          <div id="oausers">
+	         <ul class="table-view animated fast fadeInRight">
+	            
+	            <script type="text/html" id="users_template">
+	            <%
+	            for(var i=0;i<(ds.ds||[]).length;i++)
+	            {
+	            %>
+				  <li class="table-view-cell media">
+				    <a>
+                    	<div class="media-object pull-left wmz-list-left-squre">
+                            <span class="icon icomoon-user5" style="color:white;"></span>
+                        </div>
+				      	<div class="media-body">
+                            <%=ds.ds[i].username%>
+                            <p><%=ds.ds[i].depname%></p>
+                         </div>
+				    </a>
+                    <input type="checkbox" class="wmz-list-right-cbo" value="<%=ds.ds[i].uid%>;<%=ds.ds[i].username%>" name="wmzcbo"/>
+				  </li>	
+				  <%
+				  }
+				  %>
+				  </script>				 			  
+				</ul>
+				 </div>
+				 </div>
+	</article>	
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script>
+function contentHeight(){
+	var contentHeight=Math.floor($(window).height()-123);
+	$("#content").height(contentHeight+"px");
+}
+function ts()
+{
+alert('2');
+}
+function selAll(obj){
+			var wmzcbos=document.getElementsByName("wmzcbo");
+			if(obj.checked==true){
+				for(var i=0;i<wmzcbos.length;i++){
+					wmzcbos[i].checked=true;
+				}
+			}else{
+				for(var i=0;i<wmzcbos.length;i++){
+					wmzcbos[i].checked=false;
+				}
+			}
+		}
+function getorguser()
+		{
+			var selorg=document.getElementById("org");
+			//alert(selorg.value);
+			
+			//$('#org option:selected') .val();/
+			//alert("12355");
+				$util.server({
+			url : 'http://oadepusers.jsp',
+			type : 'post',
+			data : 'depcode='+selorg.value+'&keywords=',
+			dataType : 'json',
+			success : function(data){
+			//alert(data);
+			A.tmpl("#oausers","users_template",data,"replace");
+			 //alert("123");
+			},
+			error : function(data){
+			//alert(data);
+			A.alert('铜冠移动OA','请求数据异常');
+			}
+			});
+		}
+function setusers()
+		{
+		    var returnusers="";
+		    var returnuid="";
+			var userarr=document.getElementsByName("wmzcbo");
+			for(var i=0;i<userarr.length;i++)
+			{
+				if(userarr[i].checked)
+				{
+				//选择			
+				
+					if(returnusers=="")
+					{
+					returnusers=userarr[i].value.split(';')[1];
+					returnuid=userarr[i].value.split(';')[0];
+					}
+					else 
+					{
+					returnusers=returnusers+","+userarr[i].value.split(';')[1];
+					returnuid=returnuid+","+userarr[i].value.split(';')[0];
+					}
+				}
+			}
+			
+			if(document.getElementById("to").value=="")
+			{
+				document.getElementById("to").value=returnusers;
+				document.getElementById("uid").value=returnuid;
+			}
+			else
+			{
+			 document.getElementById("to").value=document.getElementById("to").value+","+returnusers;
+			 document.getElementById("uid").value=document.getElementById("uid").value+","+returnuid;
+			}
+			//A.Router.showArticle("mainart");
+			//$native.toast(returnusers);
+		}
+contentHeight();
+$('#mainart').on('articleload',function(){
+
+if($native.getParameter('mailid')!="")
+{
+    
+	$util.server({
+	url : 'http://maildetail.jsp',
+	type : 'post',
+	data : 'mailid='+$native.getParameter('mailid'),
+	dataType : 'json',
+	success : function(data){	 
+	//alert(data.Table.Table[0].mailsubject);	
+	//alert(data);	
+	//alert(unescape($native.getParameter('mailbox')));
+		if(unescape($native.getParameter('mailbox'))=="回复")
+		{
+		$("#to").val(data.Table.Table[0].senduserid);
+		$("#uid").val(data.Table.Table[0].sendusercode);
+		$("#subject").val("回复："+data.Table.Table[0].mailsubject);
+		}
+		else if(unescape($native.getParameter('mailbox'))=="草稿箱")
+		{
+		 $("#to").val(data.Table.Table[0].receiveuserid);
+		 $("#uid").val(data.Table.Table[0].receiveusercode);
+		 $("#subject").val(data.Table.Table[0].mailsubject);
+		 $("#content").val(data.Table.Table[0].mailcontent);
+		}
+		else if(unescape($native.getParameter('mailbox'))=="转发")
+		{
+		 $("#subject").val("转发："+data.Table.Table[0].mailsubject);
+		 $("#content").val("------以下是转发内容-----\n"+data.Table.Table[0].mailcontent+"\n-----以上是转发内容-----\n");
+		}
+	},
+	error : function(data){
+	A.alert('铜冠移动OA','请求数据异常');
+	}
+	});
+}
+$util.server({
+url : 'http://oadep.jsp',
+type : 'post',
+data : '',
+dataType : 'json',
+success : function(data){
+//alert(data);
+if(data.error==null)
+{//alert(data);
+ A.tmpl("#divorg","divdep2_template",data,"replace");
+ //alert("ok2");
+ //var test=document.getElementById("org");
+ //alert(test);
+}
+else
+{
+A.alert('铜冠移动OA',"会话过期，请重新登录");
+}
+ //alert("123");
+},
+error : function(data){
+A.alert('铜冠移动OA','请求数据异常');
+}
+});
+
+});
+
+$('#mail_address').on('articleload',function(){
+
+});
+$('#btn_send').click(function(){
+$util.server({
+			url : 'http://sendmail.jsp',
+			type : 'post',
+			data : 'receiveUserUid='+$('#uid').val()+'&receiveUserName='+$('#to').val()+'&MailSubject='+$('#subject').val()+'&MailContent='+$('#content').val(),
+			dataType : 'json',
+			success : function(data){
+			
+			//A.tmpl("#oausers","users_template",data,"replace");
+			 //alert("123");
+			 if(data.mail=='success')
+			 {
+			   alert("ok");
+			  $native.openWebView('mail.html?mailbox=收件箱&datatype=2');
+			 
+			  //location.href="mail.html?mailbox=收件箱&datatype=2";
+			 }
+			},
+			error : function(data){
+			//alert(data);
+			A.alert('铜冠移动OA','请求数据异常');
+			}
+			});
+});
+$('#getusers').click(function(){
+$native.openWebView('mail_address.html');
+});
+</script>
+</body>
+</html>

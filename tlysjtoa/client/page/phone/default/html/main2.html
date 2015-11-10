@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>铜冠移动办公系统</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="../../script/flat/css/flat.css">
+<link rel="stylesheet" href="../../script/flat/css/iconline.css">
+<link rel="stylesheet" href="../../script/flat/css/animate.css">
+<link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+<style>
+  	#grid-container {
+  		padding:10px;
+  		color:red;
+  		background-color:#ffffff;
+  		font-family:Helvetica;
+  	}
+  	#content-container {
+  		padding:10px;
+  		background-color:#ffffff;
+  		margin-top:10px;
+  	}
+  	.grid1 {
+  		-webkit-animation-delay:100ms;
+	-ms-animation-delay:100ms;
+	animation-delay:100ms;
+  	}
+  	.grid2 {
+  		-webkit-animation-delay:200ms;
+	-ms-animation-delay:200ms;
+	animation-delay:200ms;
+  	}
+  	.grid3 {
+  		-webkit-animation-delay:300ms;
+	-ms-animation-delay:300ms;
+	animation-delay:300ms;
+  	}
+  	.grid4 {
+  		-webkit-animation-delay:400ms;
+	-ms-animation-delay:400ms;
+	animation-delay:400ms;
+  	}
+  	.grid5 {
+  		-webkit-animation-delay:500ms;
+	-ms-animation-delay:500ms;
+	animation-delay:500ms;
+  	}
+  	.grid6 {
+  		-webkit-animation-delay:600ms;
+	-ms-animation-delay:600ms;
+	animation-delay:600ms;
+  	}
+  	.grid7 {
+  		-webkit-animation-delay:700ms;
+	-ms-animation-delay:700ms;
+	animation-delay:700ms;
+  	}
+  	.grid8 {
+  		-webkit-animation-delay:800ms;
+	-ms-animation-delay:800ms;
+	animation-delay:800ms;
+  	}
+  	.grid1 .grid-img{
+  		background-color:#3498db;
+  	}
+  	.grid2 .grid-img{
+  		background-color:#F39C12;
+  	}
+  	.grid3 .grid-img{
+  		background-color:#1abc9c;
+  	}
+  	.grid4 .grid-img{
+  		background-color:#e74c3c;
+  	}
+  	.grid5 .grid-img{
+  		background-color:#78ba00;
+  	}
+  	.grid6 .grid-img{
+  		background-color:#8e44ad;
+  	}
+  	.grid7 .grid-img{
+  		background-color:#f1c40f;
+  	}
+  	.grid8 .grid-img{
+  		background-color:#2980b9;
+  	}
+  	.grid1 .grid-img:active{
+  		background-color:#1662c2;
+  	}
+  	.grid2 .grid-img:active{
+  		background-color:#e46706;
+  	}
+  	.grid3 .grid-img:active{
+  		background-color:#0b9266;
+  	}
+  	.grid4 .grid-img:active{
+  		background-color:#da231a;
+  	}
+  	.grid5 .grid-img:active{
+  		background-color:#428f00;
+  	}
+  	.grid6 .grid-img:active{
+  		background-color:#551f7d;
+  	}
+  	.grid7 .grid-img:active{
+  		background-color:#e79e06;
+  	}
+  	.grid8 .grid-img:active{
+  		background-color:#11488c;
+  	}
+  	
+  	.grid-img{
+  		background-color:#2980b9;
+  		border-radius:25px;
+  		border:none;
+  		width:50px;
+  		height:50px;
+  	}
+  	.grid-img .iconfont{
+  		font-size:32px;
+  	}
+  	.mainfont
+  	{
+  		color:#000000;
+  		
+  		font-family: 黑体;
+  	}
+</style>
+</head>
+<body>
+
+<div id="section_container">
+	<section id="animate" class="active">
+	   <header>
+		    <div class="titlebar">
+		    	<a id="zhuxiao" href="#"><i class="icon icomoon-user4" style="font-size: 20px"></i></a>		    	
+		    	<h1 id="idbt"></h1>
+		    	<a data-target="exit" href="#"><i class="icon icomoon-switch" style="font-size: 20px;color: red;"></i></a>
+		    </div>
+		</header>
+	    <article id="banner_article"   class="active" data-scroll="true" style="top:44px;bottom:0px">
+	    	<div class="scroller" style="background-color:#eeeeee;">
+			<div id="grid-container">
+				<div class="grid">
+				 <a   href="mail.html?mailbox=收件箱&datatype=2" data-target="native" >
+					<div class="grid-cell grid1 flipInY animated-long">
+						<div class="grid-img">
+							<span class="iconfont iconline-mail"></span>
+							<span class="tip" id="gzlx" style="display:none">8</span>
+						</div>
+						<label class="grid-label mainfont">工作联系</label>
+					</div>
+				</a>
+				<a   href="news_gzap.html?classid=382" data-target="native" >
+					<div class="grid-cell grid2 flipInY animated-long">
+						<div class="grid-img">
+							<span class="iconfont iconline-notebook"></span>
+							<span class="tip" id="gzap" style="display:none">8</span>
+						</div>
+						<label class="grid-label mainfont">一周工作</label>
+					</div>
+					</a>
+					<a   href="news_list.html?classid=31&topnum=20" data-target="native" >
+					<div class="grid-cell grid3 flipInY animated-long">
+						<div class="grid-img">
+							<span class="iconfont iconline-file"></span>
+						</div>
+						<label class="grid-label mainfont">公司信息</label>
+					</div>
+					</a>
+					<!--a   href="news_gsxw.html?classid=32&topnum=20" data-target="native" >
+					<div class="grid-cell grid4 flipInY animated-long">
+						<div class="grid-img">
+							<span class="iconfont iconline-map-location"></span>
+						</div>
+						<label class="grid-label mainfont">电子公告</label>
+					</div>
+					</a-->
+					<a   href="tasklist.html" data-target="native" >
+					<div class="grid-cell grid4 flipInY animated-long">
+						<div class="grid-img">
+							<span class="iconfont iconline-map-location"></span>
+						    <span class="tip" id="dbsy" style="display:none">8</span>
+						</div>
+						<label class="grid-label mainfont">待办事宜</label>
+					</div>
+					</a>
+					<a   href="bgt.html" data-target="native" >
+					<div class="grid-cell grid5 flipInY animated-long">
+						<div class="grid-img">
+							<span class="iconfont iconline-setting"></span>
+						</div>
+						<label class="grid-label mainfont">曝光台</label>
+					</div>
+					</a>
+					<a   href="mrhq.html?classid=423" data-target="native" >
+					<div class="grid-cell grid6 flipInY animated-long">
+						<div class="grid-img">
+							<span class="iconfont iconline-folder"></span>
+						</div>
+						<label class="grid-label mainfont">每日行情</label>
+					</div>
+					</a>
+				<a href="zxfw.html" data-target="native">
+					<div class="grid-cell grid7 flipInY animated-long">
+						<div class="grid-img">
+							<span class="iconfont iconline-chart-pie"></span>
+							<span class="tip" id="zxfw" style="display:none">8</span>
+						</div>
+						<label class="grid-label mainfont">最新发文</label>
+					</div>
+				</a>
+					<a  href="tel.html" data-target="native">
+					<div class="grid-cell grid8 flipInY animated-long">
+						<div class="grid-img">
+							<span class="iconfont iconline-list"></span>
+						</div>
+						<label class="grid-label mainfont">电话查询</label>
+					</div>
+					</a>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div id="content-container" class="fadeInUp animated">
+	        	<ul class="listitem">
+	        		<li class="noclick">
+			        	<i class="icon iconfont iconline-media-volume1"></i>
+			            <div class="text" style="color:#aaa">最新信息</div>
+			        </li>
+			       <div id="datadiv">
+			       <script type="text/html" id="zxxx_template">
+			        <%
+					    for(var i=0;i<(ds.ds||[]).length;i++)
+					    {
+					    
+					%>
+			        <li>
+			            <div class="img square">
+			            	<i class="square-icon iconfont iconline-fav"></i>
+			            </div>
+			        	<div class="text">
+			        		<%
+			        		if(ds.ds[i].intype=="html" || ds.ds[i].intype=="Html")
+			        		{
+			        		%>
+			        		<a href="<%=ds.ds[i].url%>" style="color:black" data-target="native">
+			        		<%
+			        		}
+			        		else
+			        		{
+			        		%>	
+			        		<a  style="color:black" onclick="<%=ds.ds[i].method %>" href="#">
+			              	<%
+			                 }
+			              	%>
+			              	<%=ds.ds[i].contentsubject%>
+			                <small class="nowrap ellipsis">[<%=ds.ds[i].classname%>] <%=ds.ds[i].createtime%></small></a>
+			            </div>
+			        </li>
+			        <%
+			        }
+			        %>
+			       </script>
+			     	</div>		        		       
+	        	</ul>
+			</div>
+	    </div>
+	    </article>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<!-- UI界面 -->
+<script type="text/javascript" src="../../script/flat/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/flat/js/h5.base.js"></script>
+<script type="text/javascript" src="../../script/app/tgit.js"></script>
+<script type="text/javascript">
+document.addEventListener("plusready",function(){           
+          var username = ExMobiWindow.getStringSession("uname");
+          var orgname = ExMobiWindow.getStringSession("orgname");
+          orgname=orgname+"（"+username+"）";
+     	 document.getElementById("idbt").innerHTML=orgname;
+     	 $('#zhuxiao').click(function(){	
+	ExMobiWindow.confirm('确定要注销,使用其他身份登录吗？',shouye,null)
+});
+
+	},false);
+function loaddata()
+{
+	$util.server({
+url : 'http://latestnews.jsp',
+type : 'post',
+data : '',
+dataType : 'json',
+success : function(data){
+if("error" in data)
+{ 
+ errormsg(data.error);
+}
+else
+{
+ A.tmpl("#datadiv","zxxx_template",data,"replace");
+ for(var i=0;i<(data.msg.msg||[]).length;i++)
+ {
+ 	var vid=data.msg.msg[i].msgtype
+ 	var obj=document.getElementById(vid);
+ 	
+ 	if(typeof(obj)!="undefined" && obj!=null)
+ 	{
+ 		if(data.msg.msg[i].msgcount>0)
+ 		{
+ 			obj.innerHTML=data.msg.msg[i].msgcount;	
+ 			obj.style.display="";
+ 		}
+ 		else
+ 		{
+ 			obj.style.display="none";
+ 		}
+ 	}
+ }
+ 
+}
+ 
+},
+error : function(data){
+//ExMobiWindow.alert('数据获取异常，请检查网络');
+}
+});
+}	
+$('#banner_article').on('articleload',function(){
+	loaddata();
+	});
+
+function openwdbb(url,filename)
+	{
+		//alert(filename);
+		//ClientUtil.download(url,"res:temp/"+filename, sucessFun,errorFun,true)
+		openfile(url,filename);
+	}
+setInterval(loaddata(),120000);	
+
+function shouye()
+{
+	
+	//CacheUtil.remove("username");
+	//CacheUtil.remove("password");
+	CacheUtil.remove("autologin");	
+	$native.openWebView("index.html");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!-- ExMobi UIXML(XHTML)文件 -->
+<html>
+	<head>
+		<meta content="charset=utf-8"/>
+		<title show="false">请选择用户</title>
+		<script src="res:script/exmobijs/bridge.js"/>
+		<script src="res:script/exmobijs/browser.js"/>
+		<script src="res:script/exmobijs/base.js"/>
+		<script src="res:script/exmobijs/utility.js"/>
+		<script src="res:script/exmobijs/app.js"/>
+		<script src="res:script/exmobijs/db.js"/>
+		<script src="res:script/exmobijs/validate.js"/>
+		<script src="res:script/exmobijs/tree.js"/>
+		<script src="res:script/exmobijs/weibo.js"/>
+		<script src="res:script/exmobijs/calendar.js"/>
+		<script src="res:script/exmobijs/xpath.js"/>
+		<script src="res:script/exmobijs/date.js"/>
+		<script src="res:script/exmobijs/xlocation.js"/>
+		<script src="res:script/exmobijs/json.js"/>
+		<script>
+		<![CDATA[
+		var inUsers="";
+		
+		
+			function init()
+			{
+				
+				var parentWin = PageUtil.getWindowById("jtoa");
+		var strOP=window.getParameter("optype");
+		if(strOP=="1")
+		{
+			parentWin = PageUtil.getWindowById("jtoa");
+		}
+		else if(strOP=="2")
+		{
+			parentWin = PageUtil.getWindowById("bpm");
+		}
+		else if(strOP=="3")
+		{
+			parentWin = PageUtil.getWindowById("dwoa");
+		}
+		else if(strOP=="4")
+		{
+			parentWin = PageUtil.getWindowById("kqgl");
+		}
+		else
+		{
+			
+		}
+				//parent.document.getElementById("txtusername").value="zhangsan";
+				//alert("username:"+username+"\nuserid:"+userid);
+				//var  data = "depcode=&keywords="+$("words").val();
+				
+				 $a.go("http://oadep.jsp", "post", "", onOrgSuccess, null, '{"Content-Type": "application/x-www-form-urlencoded"}', true);	
+				
+				var psuid=parentWin.document.getElementById("txtuserid").value;
+				var psuname=parentWin.document.getElementById("txtusername").value;
+				var strselectuser="";	
+				if(psuid!="")
+				{
+					var apsuid=psuid.split(",");
+					var apsuname=psuname.split(",");	
+							
+					for(var i=0;i<apsuid.length;i++)
+					{
+						var eid=apsuid[i]+","+apsuname[i];
+						strselectuser=strselectuser+"<div name='divselectuser' id='"+eid+"'><a href=\"deleteselect('"+eid+"')\" style='font-weight:bold;color:blue;text-decoration:none' title='删除此用户'> Ｘ </a>"+apsuname[i]+"<hr style='margin:5px;'/></div>";
+												
+					}
+					
+				}
+				document.getElementById("contentsu").innerHTML=strselectuser;
+			  	var  data = "depcode=&keywords=";		  
+			   $a.go("http://oadepusers.jsp", "post", data, onSuccess, null, '{"Content-Type": "application/x-www-form-urlencoded"}', true);	
+				
+			}
+			function onSuccess(data)
+			{
+				
+				if(data.responseText.indexOf("error")>-1)
+				{
+					$("noContentDiv").show();
+					$("content").clear().hide();
+										
+					return;
+				}
+				else
+				{
+					$("noContentDiv").hide();
+				}
+				var json=data.responseText.toJSON()
+				if(json.ds.ds.length>0)
+				{
+					$("content").clear().provide(json.ds.ds).show();
+				}
+				else
+				{
+					$("noContentDiv").show();
+				}
+			}
+			function onOrgSuccess(data)
+			{
+				if(data.responseText.indexOf("error")>-1)
+				{
+					return;
+				}
+				var sel = document.getElementById("seldep");
+				var json=data.responseText.toJSON();
+				var opts="";
+				for(var i=0;i<json.ds.ds.length;i++)
+				{
+					opts=opts+"<option value=\""+json.ds.ds[i].depcode+"\">"+json.ds.ds[i].depname+"</option>";
+				}
+				sel.innerHTML=opts;
+			}
+			function setVal()
+			{
+				var parentWin = PageUtil.getWindowById("jtoa");
+				var strOP=window.getParameter("optype");
+				if(strOP=="1")
+				{
+					parentWin = PageUtil.getWindowById("jtoa");
+				}
+				else if(strOP=="2")
+				{
+					parentWin = PageUtil.getWindowById("bpm");
+				}
+				else if(strOP=="3")
+				{
+					parentWin = PageUtil.getWindowById("dwoa");
+				}
+				else if(strOP=="4")
+				{
+					parentWin = PageUtil.getWindowById("kqgl");
+				}
+				else
+				{
+					
+				}
+				
+				var strReturnUid="";
+				var strReturnUserName="";
+				var sue=document.getElementsByName("divselectuser")
+				for(var i=0;i<sue.length;i++)
+				{
+					if(strReturnUid=="")
+					{
+						strReturnUid=sue[i].id.split(",")[0];
+						strReturnUserName=sue[i].id.split(",")[1];	
+					}
+					else
+					{
+						strReturnUid=strReturnUid+","+sue[i].id.split(",")[0];
+						strReturnUserName=strReturnUserName+","+sue[i].id.split(",")[1];
+					}					
+				}
+				
+				//alert(strReturnUserName);
+				//var parent = PageUtil.getWindowById("jtoa");
+				parentWin.document.getElementById("txtusername").value=strReturnUserName;
+				parentWin.document.getElementById("txtuserid").value=strReturnUid;
+				//alert(strReturnUid);
+				close();
+			}
+			function deleteselect(v)
+			{				
+				var e=document.getElementById("contentsu");
+				var deldiv="<div name='divselectuser' id='"+v+"'>"+document.getElementById(v).innerHTML+"</div>";
+				e.innerHTML=e.innerHTML.split(deldiv).join("");
+								
+			}
+			function searchuser()
+			{
+				//用户查询
+				//alert($("words").val());
+				init();
+			}
+			function selecttheuser()
+			{
+				var users=document.getElementsByName("seluser");
+				var strReturnUid="";
+				var strReturnUserName="";
+				
+				for(var i=0;i<users.length;i++)
+				{
+					if(users[i].checked)
+					{
+						//alert(users[i].value);
+						//if(strReturnUid=="")
+						//{
+						//	strReturnUid=users[i].value;
+						//	strReturnUserName=users[i].caption;
+						//}
+						//else
+						//{
+						//	strReturnUid=strReturnUid+","+users[i].value;
+						//	strReturnUserName=strReturnUserName+","+users[i].caption;
+						//}
+						
+						
+						var stritem="";
+						var strselectuser=""
+						strselectuser=document.getElementById("contentsu").innerHTML;
+						stritem=users[i].value;
+						var eid=users[i].value+","+users[i].caption;
+						
+						if(document.getElementById(eid)==null)
+						{							
+						 document.getElementById("contentsu").innerHTML=strselectuser+"<div name='divselectuser' id='"+eid+"'><a href=\"deleteselect('"+eid+"')\" style='font-weight:bold;color:blue;text-decoration:none' title='删除此用户'> Ｘ </a>"+users[i].caption+"<hr style='margin:5px;'/></div>";
+						}
+					}
+					
+				}
+				//alert(strReturnUserName);
+				//var parent = PageUtil.getWindowById("jtoa");
+				//parent.document.getElementById("txtusername").value=strReturnUserName;
+				//parent.document.getElementById("txtuserid").value=strReturnUid;
+				//alert(strReturnUid);
+				//close();
+			}
+			function getdepuser()
+			{
+				var sel = document.getElementById("seldep");
+				//alert(sel.value);
+				var  data = "depcode="+sel.value+"&keywords=";		  
+			   $a.go("http://oadepusers.jsp", "post", data, onSuccess, null, '{"Content-Type": "application/x-www-form-urlencoded"}', true);	
+			}
+
+		]]>
+		</script>
+	</head>
+	<header>
+		<titlebar  caption="取消" rcaption="确定" title="请选择用户"  iconhref="script:close" riconhref="setVal()" hidericon="false"/>
+	<!--div><input id="words" type="text" prompt="搜索用户" style="width: 75%"></input><input type="button" id="searchuser" value="查询" onclick="searchuser()"></input></div-->
+	</header>
+	<body onload="init()">
+		<div style="font-weight:bold;">已选择用户：<hr style="margin:5px;"/></div>
+		<div id="contentsu" style="border:1px solid #000">			
+		</div> 
+		<div><!--input id="words" type="text" prompt="搜索用户" style="width: 70%"></input><input type="button" id="searchuser" value="查询" onclick="searchuser()"></input-->
+			<input type="button" id="btnselectuser" onclick="selecttheuser()" value="+"></input> <select id="seldep" title="--请选择部门--" style="width:80%" onchange="getdepuser()">
+				
+				</select>
+</div>
+		<div id="content" style="display: none"> 
+		<listitem  name="seluser" type="twoline" checkbox="" caption="${username}"  sndcaption="${depname}" value="${uid}" />
+	</div>
+	<div id="noContentDiv"  style="display:none;text-align: center;margin:130dp 0 0 0;">暂无数据</div>		
+	</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/agile/css/app.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+    <style>
+    	body {
+    		font-size:12px;
+    	}
+    	.scroller {
+    		padding:15px;
+    	}
+    	.news-title {
+    		width:100%;
+    		font-size:14px;
+    		margin-bottom:10px;
+    	}
+    	.author {
+    		font-style: italic;
+    		float:left;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.date {
+    		font-style: italic;
+    		float:right;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.news-content {
+    		margin-top:5px;
+    		width:100%;
+    	}
+    	.news-content img {
+    		width:100%;
+    	}
+    	.divbottom
+    	{
+    	border-bottom:1px dashed gray;
+    	
+    	}
+    </style>
+</head>
+<body>
+<div id="section_container">
+    <section id="layout_section" class="active">
+        <header class="bar bar-nav">
+			<a data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+		    <h1 class="title">每日行情</h1>
+	    </header>
+		<article id="mrhq_article" class="active">
+		<div id="mrhqdiv">	
+		<script type="text/html" id="mrhq_template">      
+	        	
+	        	<div class="card">	
+	        	 <%
+	        	 var gxrq="";
+	            	for(var i=0;i<(ds.ds||[]).length;i++)
+	            	{
+	            		gxrq=ds.ds[i].fbrq;
+	            %>        	
+			 	<div  class="bodysize" style="line-height:45px;padding-left: 8px"><%=ds.ds[i].mc.replace("lme","LME")%>:     <%=ds.ds[i].jg%>                   [<%=ds.ds[i].rq%>]  </div>
+			 	<%
+			 	}
+			 	%>
+			 	<div class="bodysize" style="text-align:center;line-height:30px;">日期：<%=gxrq%></div>
+	     </script>   	
+	    </div>
+	    </article><!-- /.content -->
+    </section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script>
+
+$('#mrhq_article').on('articleload',function(){
+
+$util.server({
+url : 'http://mrhq.jsp',
+type : 'post',
+data : 'classid='+$native.getParameter('classid'),
+dataType : 'json',
+success : function(data){
+
+//alert(data);
+ A.tmpl("#mrhqdiv","mrhq_template",data,"replace");
+ 
+
+},
+error : function(data){
+//alert(data);
+ExMobiWindow.alert('请求数据异常,请检查网络');
+},
+isBlock:true
+});});
+</script>
+
+</body>
+</html>

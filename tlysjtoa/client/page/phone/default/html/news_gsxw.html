@@ -1,0 +1,107 @@
+<!-- HTML5文件 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+</head>
+<body>
+
+
+<!-- 内容  -->
+<div id="section_container">
+	<section id="mail_section" class="active">
+	    <header class="bar bar-nav">
+	        <a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+	       
+		    <h1 class="title" id="nbt"></h1>
+	    </header>
+	    <article class="active" id="news_article"  data-scroll="true">
+	        <div class="scroller" style="overflow: auto">
+	            <ul class="table-view animated fast fadeInRight">
+	            <div id="qyxw">
+	            <script type="text/html" id="qyxw_template">
+	            <%
+	            	for(var i=0;i<(ds.ds||[]).length;i++)
+	            	{
+	            %>
+				  <li class="table-view-cell media">
+				    <a class="" style="padding-right: 10px;" data-target="native" href="news_detail.html?classid=<%=ds.ds[i].classid%>&contentid=<%=ds.ds[i].contentid%>">
+                    	<font class="media-object pull-left iconoutline iconoutline-round DodgerBlue" style="font-size:10px;margin-top:6px;"></font>
+				      	<div class="media-body">
+				        <div style="font-size:16px"><%=ds.ds[i].contentsubject%></div>                      
+				        <!--p>发布人：<%=ds.ds[i].lastmodifyusername%><font class="iconoutline  LightGray" style="font-size:14px;vertical-align:middle;"></font><--><div><font style="float:left; color:green"><%=ds.ds[i].createtime%></font></div>
+				      </div>
+				    </a>
+				  </li>	
+				  <%
+				  }
+				  %>
+				 </script>
+			   </div>		
+				</ul>                 
+	        </div>
+	    </article>        
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script type="text/javascript" src="../../script/app/tgit.js"></script>
+<script>
+$('#news_article').on('articleload',function(){
+$util.server({
+url : 'http://news.jsp',
+type : 'post',
+data : 'classid='+$native.getParameter('classid')+'&topnum='+$native.getParameter('topnum'),
+dataType : 'json',
+success : function(data){
+  if($native.getParameter('classid')=="32")
+ {
+ document.getElementById("nbt").innerHTML="电子公告";
+ }
+ else if($native.getParameter('classid')=="31")
+ {
+  document.getElementById("nbt").innerHTML="公司信息";
+ }
+ else
+ {
+ 	document.getElementById("nbt").innerHTML="曝光台";
+ }
+ if("error" in data)
+  {
+	errormsg(data.error);
+  }
+ else
+ {
+ A.tmpl("#qyxw","qyxw_template",data,"replace");
+ }
+},
+error : function(data){
+errorconfirm('会话过期，请重新登录');
+},
+isBlock:true
+});});
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<maxml version="2.0" xmlns="http://www.nj.fiberhome.com.cn/map"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nj.fiberhome.com.cn/map maxml-2.0.xsd">
+  <config>
+    <htmlformat wellformat="true" />
+    <filepreviewconfig wordtohtml="false"/>
+     <httppushrsp restrainrsp="false"/>
+     <domain address="tgitbpm.tlys" name="bpm"/>
+  </config>
+  <route baseaddr="http://bpm/">
+ 	<forward pattern="Portal/UserLogin.aspx.*" path="login.jsp" />
+ 	<forward pattern="portal/cms/uploadfile/.*" path="download.jsp" />
+ 	<forward pattern="Portal/CMS/infomanage/b_process_data_image_office.aspx\?.*" path="newdetail.jsp"></forward>
+    <forward pattern="portal/CMS/infomanage/operation.aspx\?.*" path="listnews.jsp"/>
+    <forward pattern="Portal/workkeep/errmail/490591.xml" path="readxml.jsp"/>
+    <forward pattern="GetMbAttach.aspx\?.*" path="download.jsp" />
+    <forward pattern="mobilegetoafile.aspx\?.*" path="download2.jsp" />
+ </route>
+  <services>
+  	<http-service>
+  		<!-- section页面动态注入json数据 -->
+  		<forward pattern="/section/json" path="section/json.jsp"/>
+  		<!-- aticle内容动态注入json数据 -->
+  		<forward pattern="/article/json" path="article/json.jsp"/>
+  		<!-- modal内容动态注入json数据 -->
+  		<forward pattern="/modal/json" path="modal/json.jsp"/>
+  		<!-- page内容动态注入json数据 -->
+  		<forward pattern="/page/json" path="page/json.jsp"/>
+  		
+  		<forward pattern="/mail_interface_section" path="mail_interface_section.jsp"/>
+  		
+  		<forward pattern="/getImgBase64" path="getImgBase64.jsp"/>
+  		<forward pattern="portal/cms/uploadfile/.*" path="download.jsp" />
+  	</http-service>
+  </services>
+</maxml>

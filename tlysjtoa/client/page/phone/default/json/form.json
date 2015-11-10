@@ -1,0 +1,13 @@
+{
+	name : 'nandy',
+	position : true,
+	company : 'fhss',
+	interest : 'vb',
+	sex : 'nan',
+	description : '这是描述',
+	date : '2014-09-29',
+	time : '11:11',
+	file : '',
+	barcode : '123456',
+	qrcode : 'http://www.exmobi.cn'
+}

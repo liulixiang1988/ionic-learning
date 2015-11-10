@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+  
+    <link rel="stylesheet" href="../../css/wmz.css">
+</head>
+<body>
+<!-- 侧边栏 -->
+<div id="aside_container">
+	<aside id="mail_aside" data-position="right" data-transition="push" style="background: -webkit-linear-gradient(-45deg, #1b63ab 0%,#0e4882 75%);">
+    <div class="center">
+        <ul class="menu">
+            <li class="wmz-slide-list active"><a href="mail.html?mailbox=收件箱&datatype=2" data-target="native"><div class="wmz-round-btn"><font class="iconoutline iconoutline-inbox"></font></div><span>收件箱</span></a></li>
+            <li class="wmz-slide-list"><a href="mail.html?mailbox=草稿箱&datatype=2" data-target="native"><div class="wmz-round-btn"><font class="iconoutline iconoutline-draft"></font></div>草稿箱</a></li>
+            <!--li class="wmz-slide-list"><a href="#" onclick="$native.toast('离线版不支持此功能')"><div class="wmz-round-btn"><font class="iconoutline iconoutline-favmark"></font></div>标星邮件</a></li-->
+            <li class="wmz-slide-list"><a href="mail.html?mailbox=发件箱&datatype=2" data-target="native"><div class="wmz-round-btn"><font class="iconoutline iconoutline-sent"></font></div>已发送</a></li>
+            <li class="wmz-slide-list"><a href="mail.html?mailbox=已删除&datatype=2" data-target="native"><div class="wmz-round-btn"><font class="iconoutline iconoutline-trash"></font></div>已删除</a></li>
+        </ul>
+    </div>
+</aside>
+</div>
+<!-- 内容  -->
+<div id="section_container">
+	<section id="mail_section" class="active" data-aside-right="#mail_aside">
+	    <header class="bar bar-nav">
+	        <a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+	        <a class="icon icon-bars pull-right" data-target="aside" href="#mail_aside"></a>
+		    <h1 class="title" id="hbt">收件箱</h1>
+	    </header>
+	    <article class="active" id="mail_article"  data-articleload="showPull()">
+	        <div class="scroller">
+	            <ul class="table-view animated fast fadeInRight">
+				  
+				  <div id="gzlxdata2">
+				   <script type="text/html" id="gzlxlist_template">			       
+			        <%
+					    for(var i=0;i<(ds.ds||[]).length;i++)
+					    {
+					    
+					%>
+					<li class="table-view-cell media">
+					<%
+					if(ds.ds[i].mailbox=="草稿箱")
+					{
+					%>	
+				    <a class="" data-target="native" href="mail_write2.html?mailid=<%=ds.ds[i].mailid%>&mailbox=<%=ds.ds[i].mailbox%>">
+				     <%
+				    }
+				    else
+				    {
+				     %>
+				     <a class="" style="padding-right: 10px" data-target="native" href="mail_detail.html?mailid=<%=ds.ds[i].mailid%>&mailbox=<%=ds.ds[i].mailbox%>">
+				     <%
+				    }
+				     %>
+				      <font class="media-object pull-left iconoutline iconoutline-round DodgerBlue" style="font-size:10px;margin-top:6px;"></font>
+				      <div class="bodysize">
+				        <%=ds.ds[i].mailsubject%>
+				        <%
+				        if(ds.ds[i].isread=="1")
+				        {
+				        %>
+                        <font class="pull-right iconoutline iconoutline-fav LightGray" style="font-size:20px;float:right;"></font>
+				        <%
+				        }
+				        else
+				        {
+				        %>
+				        <font class="pull-right iconoutline iconoutline-fav-current Orange" style="font-size:20px;float:right;"></font>
+				        <%
+				        }
+				        %>
+				        <p><%=ds.ds[i].senduserid%>
+				        <%
+				        if(ds.ds[i].ismailattach=="1")
+				        {
+				        %>
+				        <font class="iconoutline iconoutline-attach" style="font-size:14px;color:blue;vertical-align:middle;"></font>
+				        <%
+				        }
+				        %>
+				        <font style="float:right;"><%=ds.ds[i].sendtime%></font></p>
+				      </div>
+				    </a>
+				  </li> 
+					<%
+						}
+					%>
+					</script>
+				  </div>         				          
+				</ul>
+	        </div>
+	    </article>
+        <a class="wmz-mailwrite-btn" data-target="native" href="mail_write2.html">
+            <font class="iconoutline iconoutline-write"></font>
+        </a>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script type="text/javascript" src="../../script/app/tgit.js"></script>
+<script>
+document.addEventListener("plusready", getmaillist, false);
+var initload=true;
+var li = '<li class="table-view-cell media"><a class="navigate-right"><span class="media-object icon icon-more pull-left"></span><div class="media-body">新数据</div></a></li>';
+function showPull(){	
+    A.Refresh({
+        selector : '#mail_article',
+        type : 'pullDown',
+        refreshTip : '<span id="refresh_time" class="sliver">更新于：从未更新</span>',
+        callback : function(){
+        	getmaillist();
+        	}
+    });
+}
+/*$('#mail_article').on('articleload',function(){
+$util.server({
+url : 'http://mail.jsp',
+type : 'post',
+data : 'mailbox='+$native.getParameter('mailbox')+'&datatype='+$native.getParameter('datatype'),
+dataType : 'json',
+success : function(data){
+//alert(data);
+document.getElementById("hbt").innerHTML=$native.getParameter('mailbox');
+if("error" in data)
+{
+ errormsg(data.error);
+ //ExMobiWindow.alert('内容为空'+data.error);
+}
+else
+{
+ A.tmpl("#gzlxdata2","gzlxlist_template",data,"replace");
+} 
+},
+error : function(data){
+document.getElementById("hbt").innerHTML=$native.getParameter('mailbox');
+//ExMobiWindow.alert('会话过期，请重新登录');
+errorconfirm('会话过期，请重新登录');
+},
+isBlock:true
+});
+});*/
+function getmaillist()
+{
+	$util.server({
+url : 'http://mail.jsp',
+type : 'post',
+data : 'mailbox='+$native.getParameter('mailbox')+'&datatype='+$native.getParameter('datatype'),
+dataType : 'json',
+success : function(data){
+//alert(data);
+document.getElementById("hbt").innerHTML=$native.getParameter('mailbox');
+if("error" in data)
+{
+ errormsg(data.error);
+ //ExMobiWindow.alert('内容为空'+data.error);
+}
+else
+{
+ A.tmpl("#gzlxdata2","gzlxlist_template",data,"replace");
+ $('#refresh_time').html('更新于：'+A.Util.formatDate(new Date(),'yyyy-MM-dd hh:mm:ss'));
+ if(!initload)
+ { 	
+ 	$native.toast('完成最新信息获取');
+ 	//window.refresh();
+ } 
+ initload=false;
+} 
+},
+error : function(data){
+document.getElementById("hbt").innerHTML=$native.getParameter('mailbox');
+//ExMobiWindow.alert('会话过期，请重新登录');
+errorconfirm('会话过期，请重新登录');
+},
+isBlock:true
+});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+</head>
+<body>
+
+
+<!-- 内容  -->
+<div id="section_container">
+	<section id="gwxx_section" class="active" data-aside-right="#mail_aside">
+	    <header class="bar bar-nav">
+	        <a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+	       
+		    <h1 class="title">最新发文</h1>
+	    </header>
+	    <article class="active" id="gwxx_article"  data-scroll="true">	    	
+	        <div class="scroller">
+	        	<div id="gwxx">	      
+	        		<script type="text/html" id="gwxx_template">	            
+	            <ul class="table-view animated fast fadeInRight">
+	            	<!--li><a onclick="openattr('http://fjzw.jsp?attachid=0pqnvdoqrqt2xtneb5im','劳务派遣用工法律风险提示函.doc')">。劳务派遣用工法律风险提示函.doc</a></li-->	            	
+	            	<%
+	            	for(var i=0;i<(gw.gw||[]).length;i++)
+	            	{
+	            %>  
+				  <li class="table-view-cell media">
+				    <!--a class="" style="padding-right:10px" onclick="openattr('http://gwzw.jsp?businessid=<%=gw.gw[i].businessid%>&bforderid=<%=gw.gw[i].bforderid%>&entitycode=<%=gw.gw[i].entitycode%>','<%=gw.gw[i].bforderid%>.doc')" href="#"-->
+				    <a class="" style="padding-right:10px" href="openzxfw.uixml?businessid=<%=gw.gw[i].businessid%>&bforderid=<%=gw.gw[i].bforderid%>&entitycode=<%=gw.gw[i].entitycode%>" data-target="exmobi">
+                    	<font class="media-object pull-left iconoutline iconoutline-round DodgerBlue" style="font-size:10px;margin-top:6px;"></font>
+				      	<div class="media-body">
+				        <div style="font-size:16px"><%=gw.gw[i].attribute1%></div>                  
+				        <p><font style="float:left; color:green"><%=gw.gw[i].stime%></font><font class="iconoutline  LightGray" style="font-size:14px;vertical-align:middle;"></font></p>				        
+				      </div>
+				    </a>
+				  </li>	
+				   <%
+				  }
+				  %>
+				  					
+				  </ul> 
+				 </script>				
+				 </div>           
+	        </div>
+	    </article>        
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script type="text/javascript" src="../../script/app/tgit.js"></script>
+<script>
+$('#gwxx_article').on('articleload',function(){
+$util.server({
+url : 'http://zxfw.jsp',
+type : 'post',
+data : '',
+dataType : 'json',
+success : function(data){
+	//alert(data);
+	if("error" in data)
+		{
+		 errormsg(data.error);
+		 //ExMobiWindow.alert('内容为空'+data.error);
+		}
+		else
+		{
+			A.tmpl("#gwxx","gwxx_template",data,"replace");
+		}
+   
+},
+error : function(data){
+	//alert(data);
+errormsg('请求数据异常,请检查网络');
+}
+});});
+
+	function openattr(url,filename)
+	{
+		//alert(filename);
+		//ClientUtil.download(url,"res:temp/"+filename, sucessFun,errorFun,true)
+	    openfile(url,filename);
+	}
+</script>
+</body>
+</html>

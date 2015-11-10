@@ -1,0 +1,112 @@
+﻿@font-face {
+	font-family: 'iconoutline';
+	src:url('fonts/iconoutline.eot?-j3tfxi');
+	src:url('fonts/iconoutline.eot?#iefix-j3tfxi') format('embedded-opentype'),
+		url('fonts/iconoutline.woff?-j3tfxi') format('woff'),
+		url('fonts/iconoutline.ttf?-j3tfxi') format('truetype'),
+		url('fonts/iconoutline.svg?-j3tfxi#iconoutline') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class*="iconoutline-"] {
+	font-family: 'iconoutline';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.iconoutline {
+  display: inline-block;
+  font-family: iconoutline;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+.iconoutline-bumf:before {
+	content: "\e119";
+}
+.iconoutline-bumf-attach:before {
+	content: "\e11a";
+}
+.iconoutline-logo:before{
+	content: "\e103";
+}
+.iconoutline-close:before{
+	content: "\e104";
+}
+.iconoutline-pic:before{
+	content: "\e105";
+}
+.iconoutline-floder:before{
+	content: "\e106";
+}
+.iconoutline-replyall:before{
+	content: "\e107";
+}
+.iconoutline-reply:before{
+	content: "\e108";
+}
+.iconoutline-camera:before{
+	content: "\e109";
+}
+.iconoutline-forward:before{
+	content: "\e10a";
+}
+.iconoutline-search:before{
+	content: "\e10b";
+}
+.iconoutline-add:before{
+	content: "\e10c";
+}
+.iconoutline-send:before{
+	content: "\e10d";
+}
+.iconoutline-write:before{
+	content: "\e10e";
+}
+.iconoutline-down:before{
+	content: "\e10f";
+}
+.iconoutline-up:before{
+	content: "\e110";
+}
+.iconoutline-rdo-current:before{
+	content: "\e111";
+}
+.iconoutline-round:before{
+	content: "\e112";
+}
+.iconoutline-rdo:before{
+	content: "\e113";
+}
+.iconoutline-attach:before{
+	content: "\e114";
+}
+.iconoutline-trash:before{
+	content: "\e115";
+}
+.iconoutline-draft:before{
+	content: "\e116";
+}
+.iconoutline-favmark:before{
+	content: "\e117";
+}
+.iconoutline-sent:before{
+	content: "\e118";
+}
+.iconoutline-inbox:before{
+	content: "\e100";
+}
+.iconoutline-fav-current:before{
+	content: "\e101";
+}
+.iconoutline-fav:before{
+	content: "\e102";
+}

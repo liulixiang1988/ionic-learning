@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/agile/css/app.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+    <style>
+    	body {
+    		font-size:12px;
+    	}
+    	.scroller {
+    		padding:15px;
+    	}
+    	.news-title {
+    		width:100%;
+    		font-size:14px;
+    		margin-bottom:10px;
+    	}
+    	.author {
+    		font-style: italic;
+    		float:left;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.date {
+    		font-style: italic;
+    		float:right;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.news-content {
+    		margin-top:5px;
+    		width:100%;
+    	}
+    	.news-content img {
+    		width:100%;
+    	}
+    	.divbottom
+    	{
+    	border-bottom:1px dashed gray;
+    	
+    	}
+    </style>
+</head>
+<body class="bodysize">
+<div id="section_container">
+    <section id="layout_section" class="active">
+        <header class="bar bar-nav">
+			<a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+			<!--a class="icon icon-left-nav pull-left" data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a-->
+		    <h1 class="title">曝光-详情</h1>
+	    </header>
+		<article id="bgtdt_article" class="active">	
+			<div class="scroller">	 
+			<div id="bgtdt">     
+	        	<script type="text/html" id="bgtdt_template">
+	        		<%
+	            	for(var i=0;i<(ds.ds||[]).length;i++)
+	            	{
+	            %>  	
+	        	<div class="card">
+					<div  style="width:85%; line-height:45px; float: left;padding-left: 8px;height:45px">
+				        <%=ds.ds[i].wf_bgdate%>		        												
+			        </div>	
+			        <div  style="width:15%; float: right;line-height:45px;">
+				        <div class="icon icon-down-nav" style="line-height:45px; align:right;"></div>			        												
+			        </div>
+			        <div style="line-height:25px; padding-left: 8px;" class="divbottom">
+			        单位：<%=ds.ds[i].wf_applyorgname%></div>
+			   <div style="line-height:25px; padding-left: 8px;" class="divbottom">	
+			        行为人：<%=ds.ds[i].wf_employmee%> 职位：<%=ds.ds[i].wf_zhiwu%></div>
+			    <div style="line-height:25px; padding-left: 8px;" class="divbottom">   
+			        人员类别：<%=ds.ds[i].wf_rylb%></div>
+<div style="line-height:25px; padding-left: 8px;" class="divbottom"> 违章事实：<%=ds.ds[i].wf_wzss%>     </div>	        	
+	        	<div style="line-height:25px; padding-left: 8px;"> 处罚情况：<%=ds.ds[i].wf_cfqk%>  学习情况: <%=ds.ds[i].wf_wzxxqk%>  </div>
+	        	</div>
+	        	<%
+	        }
+	        	%>
+	        </script>
+	        </div>
+	        </div>
+	    </article><!-- /.content -->
+    </section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script>
+$('#bgtdt_article').on('articleload',function(){
+$util.server({
+url : 'http://bgtdetail.jsp',
+type : 'post',
+data : 'depcode='+$native.getParameter('depcode'),
+dataType : 'json',
+success : function(data){
+	//alert(data);
+  A.tmpl("#bgtdt","bgtdt_template",data,"replace");
+},
+error : function(data){
+	//alert(data);
+ExMobiWindow.alert('请求数据异常,请检查网络');
+}
+});});
+</script>
+
+</body>
+</html>

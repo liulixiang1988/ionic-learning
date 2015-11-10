@@ -1,0 +1,45 @@
+<html isbridge="true">
+	<head>
+		<meta charset="UTF-8"/>
+		<title show="false">webapp</title>
+		<script type="text/javascript" src="res:script/exmobijs/base.js"></script>
+		<script type="text/javascript" src="res:script/exmobijs/app.js"></script>
+		<script type="text/javascript" src="res:script/exmobijs/utility.js"></script>
+		<script type="text/javascript" src="res:script/exmobijs/browser.js"></script>
+		<script type="text/javascript" src="res:script/exmobijs/bridge.js"></script>
+		<script type="text/javascript" src="res:script/app/vpn.js"></script>
+		<script>
+		<![CDATA[
+		function doLoad()
+		{
+		
+         	deltemfile();
+         	
+//
+		}
+		
+		function deltemfile()
+		{
+			try{
+			var folder=new File("res:temp/",true);
+		     var array =folder.listFiles(".*");/*根据过滤条件返回一个字符串数组*/ 
+		     for(i=0;i<array.length;i++){
+		     var file = array[i];
+		     if(file.exists())
+		     {
+		       	file.deleteFile();
+		     }
+		     }
+		    }
+		    catch(e)
+		    {
+		    	//
+		    }
+		}
+		]]>
+		</script>
+	</head>
+	<body id="body" pagedrag="false" pageanimation="none" pagebackanimation="none" style="margin:0px;padding:0px;" onload="doLoad()" >
+		<webview id="browser" url="res:page/html/index.html" backmonitor="true" style="display:"></webview>
+	</body>
+</html>

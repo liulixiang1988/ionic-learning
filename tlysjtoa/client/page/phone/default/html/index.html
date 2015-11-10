@@ -1,0 +1,239 @@
+<!-- HTML5文件 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+<style>
+
+.zimu {
+				margin: 0 auto;
+				width: 30%;
+				text-align: center;
+				font-size: 8em;
+				font-weight: 100;
+				border: 5px;
+				padding: 0.3em 0;
+			}
+
+			.anniu {
+				margin-top: 1.5em;
+			}
+	 input[type="checkbox"]{
+		height:24px;
+		width:24px;
+		margin-left:8px;
+		margin-top:8px;
+	}
+
+	input[type="checkbox"]+label{
+		color:gray;
+		height:24px;
+		line-height:24px;
+		display:inline-block;
+		vertical-align:middle;
+		margin-left:4px;
+	}
+	
+</style>
+</head>
+<body>
+<!-- 主页  -->
+<div id="section_container">
+	<section id="main_section" class="active" data-article-slider="true" data-pageload="doBtnHide()" data-aside-right="#aside_right">
+	    <!--header class="bar bar-nav">
+	      	<a class="icon icon-left-nav pull-left" data-target="exit" href="#"></a>
+		  	
+	      	<h1 class="title">登录</h1>
+	    </header-->	    
+	    <article class="active" data-scroll="true">
+				<form class="input-group">
+					<div class="peter-river"><img src="../../image/login0528.png" style="width:100%;align:center;"/></div>
+					<div class="input-row">
+						<label><span class="icon icomoon-user peter-river"></span></label>
+						<input type="text" id="username" name="username" placeholder="请输入姓名" tabindex="1">
+					</div>
+					<div class="input-row">
+						<label><span class="icon icomoon-lock peter-river"></span></label>
+						<input type="password" id="password" name="password" placeholder="请输入密码" tabindex="2">
+					</div>
+					<div style="text-align: right;margin-right: 8px;">
+						<input type="checkbox" id="remberusername"  />
+		    			<label for="remberusername" style="height:24px;vertical-align:middle;">记住账户</label>
+		    			<input type="checkbox" id="remberpwd"  />
+		    			<label for="remberpwd" style="height:24px;vertical-align:middle;">记住密码</label>
+		    			<input type="checkbox" id="autologin" onclick="getchk()"  />
+		    			<label for="autologin" style="height:24px;vertical-align:middle;">自动登录</label>
+		    		</div>
+					<div style="padding: 0 0.2em">
+						<a id="btn_login" class="btn btn-primary btn-block anniu" tabindex="3">登录</a>					
+					</div>											
+				</form>	
+				<div style="border-bottom-color: white; text-align: center;line-height: 200%; vertical-align: middle;color:gray"><br/>技术支持：铜冠信息科技有限责任公司<br>服务电话：0562-5861216<a id="vpn" onclick="vpn()">(接入VPN网络) </a></div>			
+			</article>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script type="text/javascript" src="../../script/app/vpn.js"></script>
+<script>
+document.addEventListener("plusready",function(){	
+	
+		  
+           var username = CacheUtil.getCache("username");
+           var password = CacheUtil.getCache("password");
+           var autologin=CacheUtil.getCache("autologin");
+           $("#username").val(username);
+           $("#password").val(password);
+           if(username!="")
+           {
+           	$("#remberusername").prop("checked",true);
+           }
+     	   if(password!="")
+           {
+           	$("#remberpwd").prop("checked",true);
+           }
+           if(autologin=="1")
+           {
+           	$("#autologin").prop("checked",true);
+           	login(username,password);           	
+           }
+           //startSangforVpn();
+          
+
+	},false);
+	
+//设置点击登录按钮后的操作
+$('#btn_login').click(function(){
+var username = $('#username').val();
+var password = $('#password').val();
+//$native.openWebView('main3.html');
+//return;
+if(username=='')
+{
+$native.toast('请输入你的用户名');
+}
+else if(password=='')
+{
+$native.toast('请输入登录密码');
+}
+else
+{
+login(username,password);
+}
+});
+
+function login(username,password)
+{
+	$util.server({
+url : 'http://login.jsp',
+type : 'post',
+data : 'username='+username+'&password='+password,
+dataType : 'json',
+success : function(data){
+
+if(data.title=='check success'){
+	
+	updateapp();	  
+	//初始化下载
+	var downloadInfos= ClientUtil.getDownloadInfos();
+	//
+	if($("#autologin").attr("checked")==true)
+	{
+		CacheUtil.setCache("username",username);
+	    CacheUtil.setCache("password",password);
+	    CacheUtil.setCache("autologin","1");//自动登录
+	        
+	}
+	else
+	{
+		if($("#remberusername").attr("checked")==true)
+		{
+			CacheUtil.setCache("username",username);
+			  
+			 	    
+		}
+		if($("#remberpwd").attr("checked")==true)
+		{
+			CacheUtil.setCache("password",password);
+			
+		}
+	}
+	
+	ExMobiWindow.setStringSession("uname",data.username);
+    ExMobiWindow.setStringSession("orgname",data.orgname);
+if(username.indexOf("@")>0)
+{
+	var url="main_"+username.split("@")[1]+".html";
+	$native.openWebView(url);
+} 
+else
+{
+	//$native.alert("ddd");
+	$native.openWebView('main2.html');
+}   
+}else{
+//A.alert('铜冠移动OA','登录失败,请确认你的身份信息!\n\n'+data.title);
+ExMobiWindow.alert('登录失败,请确认你的身份信息!\n\n'+data.title);
+
+}
+},
+error : function(data){
+//ExMobiWindow.alert('登录失败，请检查您的手机是否接入网络！');
+//$.alert('登录失败，请检查您的手机是否接入网络！');
+startSangforVpn();
+//updateapp();
+},
+isBlock:true
+});
+}
+function vpn(){
+	//alert('3');
+	startSangforVpn();
+	}
+
+function getchk()
+{
+    //alert($("#autologin").attr("checked"));
+	if($("#autologin").attr("checked")==true)
+	{
+		$("#remberusername").prop("checked",true);
+		$("#remberpwd").prop("checked",true);
+	}
+	else
+	{
+		//$("#remberusername").prop("checked",false);
+		//$("#remberpwd").prop("checked",false);
+	}
+}
+function updateapp()
+{
+	//
+		  ClientUtil.startClientUpdate();
+		  ClientUtil.startAppUpdate();
+		  //
+}
+</script>
+</body>
+</html>

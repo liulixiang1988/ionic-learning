@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+</head>
+<body>
+
+<div id="section_container">
+	<section id="mail_write_section" class="active">
+	<header class="bar bar-nav">
+		<!-- --a class="icon iconoutline-send pull-right" id="btn_send"></a-->
+	    <a class="icon icon-left-nav pull-left" data-target="close" href="#"></a>
+	    <a href="#" class="pull-right" id="btn_actionsheet"><font class="icon icon-more-vertical"></font></a>
+	    <h1 class="title">新建工作联系</h1>
+	</header>
+	
+	<article class="active" id="mainart" data-scroll="true" style="border-bottom:0px;">
+		<div class="scroller">
+	        <form class="input-group">
+	          <div data-role="icon">
+              	<input type="text" id="to" placeholder="发送至:" readonly="readonly">
+                <font class="btn-add" data-target="section" href="#mail_contact_section"></font>
+                <input type="hidden" id="uid">
+              </div>  
+              <div style="height: 400px">            
+	          <input type="text" id="subject" placeholder="标题:">
+	          <textarea rows="5" id="content" placeholder="内容:" style="border-bottom:1px solid white;"></textarea>	         
+	          </div>
+	          <div style="padding-left: 10px"><font class="iconoutline iconoutline-attach" style="font-size:14px;color:blue;vertical-align:middle;"></font>附件 </div>
+	          <div data-role="file" style="margin-left:10px;margin-right:10px;">
+				  		<label>请选择文件</label>
+				  		<input name="file" id="file1" type="hidden">
+				  	</div>
+			  <div id="attr" style="padding-left:10px;padding-right:10px;line-height:120%"></div>	  	
+	        </form>	        
+	    </div>
+	</article>	
+</section>
+    <section id="mail_contact_section">
+	    <header class="bar bar-nav">
+	       	<a data-target="section" href="mail_write_section"><font class="icon icon-left-nav"></font><font class="icon">取消</font></a>
+	      	<a class="pull-right" data-target="section" href="mail_write_section" onclick="setusers()"><font class="icon">添加</font></a>
+		    <h1 class="title">选择人员</h1>
+	    </header>
+        <div class="bar bar-standard bar-header-secondary" style="background-color:#f2f2f2;border-bottom:1px solid #f2f2f2; align:left">
+		   <!--input type="search" placeholder="搜索" style="width:70%;"-->
+		   
+		   	<div id="divorg2" style="width:90%;font-size:12px;">
+		   	<script type="text/html" id="divdep2_template">		   
+						<select id="org" name="org" onchange="getorguser()">
+							<option value="00" selected="true">--请选择部门--</option>
+			<%
+		   for(var i=0;i<(ds.ds||[]).length;i++)
+		   {
+		   %>
+						  	<option value="<%=ds.ds[i].depcode%>"><%=#ds.ds[i].depname.split('集团公司、股份公司').join('集团、股份').split('计划生育办公室').join('计生办').split('信访办公室').join('信访办')%></option>						  	
+			<%
+			}
+			%>	
+						</select>	
+						<input type="checkbox" style="position:absolute;right:8px;top:50%;-webkit-transform:translateY(-50%);" onClick="selAll(this)" id="selall"/>													
+		</script>
+		   	</div>	
+           
+	    </div>
+	  <article class="active" data-scroll="true" id="mail_address2">
+	         
+	         <div class="scroller"> 
+	           	         
+	          <div id="oausers"> </div>
+	         
+	            
+	            <script type="text/html" id="users_template">
+	            <ul class="table-view animated fast fadeInRight">
+	            <%
+	            for(var i=0;i<(ds.ds||[]).length;i++)
+	            {
+	            %>
+				  <li class="table-view-cell media">
+				    <a>
+                    	<div class="media-object pull-left wmz-list-left-squre">
+                            <span class="icon icomoon-user5" style="color:white;"></span>
+                        </div>
+				      	<div class="media-body">
+                            <%=ds.ds[i].username%>
+                            <p><%=ds.ds[i].depname%></p>
+                         </div>
+				    </a>
+                    <input type="checkbox" class="wmz-list-right-cbo" value="<%=ds.ds[i].uid%>;<%=ds.ds[i].username%>" name="wmzcbo"/>
+				  </li>	
+				  <%
+				  }
+				  %>
+				  </ul>
+				  </script>		
+				 </div>
+	</article>	
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script>
+function contentHeight(){
+	var contentHeight=Math.floor($(window).height()-123);
+	$("#content").height(contentHeight+"px");
+}
+function ts()
+{
+alert('2');
+}
+function selAll(obj){
+			var wmzcbos=document.getElementsByName("wmzcbo");
+			if(obj.checked==true){
+				for(var i=0;i<wmzcbos.length;i++){
+					wmzcbos[i].checked=true;
+				}
+			}else{
+				for(var i=0;i<wmzcbos.length;i++){
+					wmzcbos[i].checked=false;
+				}
+			}
+		}
+function getorguser()
+		{
+			var selorg=document.getElementById("org");
+			//alert(selorg.value);
+			
+			//$('#org option:selected') .val();/
+			//alert("12355");
+				$util.server({
+			url : 'http://oadepusers.jsp',
+			type : 'post',
+			data : 'depcode='+selorg.value+'&keywords=',
+			dataType : 'json',
+			success : function(data){
+			//alert(data);
+			//$('#oausers').innerHTML="";
+			if("error" in data)
+			{
+				ExMobiWindow.alert('铜冠移动OA：'+data.error);
+			}
+			else
+			{
+			A.tmpl("#oausers","users_template",data,"replace");
+			}
+			 //alert("123");
+			},
+			error : function(data){
+			//alert(data);
+			ExMobiWindow.alert('请求数据异常,请检查网络');
+			},
+isBlock:true
+			});
+		}
+function setusers()
+		{
+		    var returnusers="";
+		    var returnuid="";
+			var userarr=document.getElementsByName("wmzcbo");
+			for(var i=0;i<userarr.length;i++)
+			{
+				if(userarr[i].checked)
+				{
+				//选择			
+				
+					if(returnusers=="")
+					{
+					returnusers=userarr[i].value.split(';')[1];
+					returnuid=userarr[i].value.split(';')[0];
+					}
+					else 
+					{
+					returnusers=returnusers+","+userarr[i].value.split(';')[1];
+					returnuid=returnuid+","+userarr[i].value.split(';')[0];
+					}
+				}
+			}
+			
+			if(document.getElementById("to").value=="")
+			{
+				document.getElementById("to").value=returnusers;
+				document.getElementById("uid").value=returnuid;
+			}
+			else
+			{
+			 //document.getElementById("to").value=document.getElementById("to").value+","+returnusers;
+			 //document.getElementById("uid").value=document.getElementById("uid").value+","+returnuid;
+			 document.getElementById("to").value=returnusers;
+				document.getElementById("uid").value=returnuid;
+			}
+			//A.Router.showArticle("mainart");
+			//$native.toast(returnusers);
+		}
+function submitData(type){
+
+           var submitData={};
+
+           //设置url
+
+           submitData.url = "http://sendmail2.jsp";
+
+           //设置发送数据
+
+           var data1 = {};
+
+           data1.type = 0;
+
+           data1.name = "subject";
+
+           data1.value= $('#subject').val();
+           
+           var data2 = {};
+
+           data2.type = 1;
+
+           data2.name = "filename";
+
+           data2.value= $('#file1').val();
+          //alert($('#file1').val());
+           var data3 = {};
+
+           data3.type = 0;
+
+           data3.name = "to";
+
+           data3.value= $('#to').val();
+           var data4 = {};
+
+           data4.type = 0;
+
+           data4.name = "uid";
+
+           data4.value= $('#uid').val();
+           
+           var data5 = {};
+
+           data5.type = 0;
+
+           data5.name = "content";
+
+           data5.value= $('#content').val();
+           
+           var data6={};
+           data6.type=0;
+           data6.name="mailid";
+           data6.value=$native.getParameter('mailid');
+           
+            var data7={};
+           data7.type=0;
+           data7.name="mailbox";
+           data7.value= unescape($native.getParameter('mailbox'));
+           var data8={};
+           data8.type=0;
+           data8.name="istype";
+           data8.value=type;
+           var arrayData = new Array();
+
+           arrayData.push(data1);
+
+           arrayData.push(data2);
+           arrayData.push(data3);
+           arrayData.push(data4);
+           arrayData.push(data5);
+           arrayData.push(data6);
+           arrayData.push(data7);
+           arrayData.push(data8);
+           submitData.data = arrayData;
+
+           //设置成功回调
+
+           submitData.successFunction = "okFunction";
+
+           //设置失败回调
+
+           submitData.failFunction = "failFunction";
+
+           //设置提交方式为post
+
+           submitData.method = "post";
+
+           // 设置编码方式为UTF-8
+
+           submitData.reqCharset = "UTF-8";
+
+           //设置上传过程中弹出进度条
+
+           submitData.isBlock = true; 
+
+           //构建FormSubmit对象
+
+           var exmobiSubmit= new FormSubmit(submitData);
+
+//发送请求
+
+           exmobiSubmit.send();
+
+       }
+
+       function failFunction(submitData){
+
+           //A.alert('铜冠移动OA',submitData.objName +"方式的数据提交失败，status为:"+submitData.status);
+           ExMobiWindow.alert(submitData.objName +"方式的数据提交失败，status为:"+submitData.status);
+
+       }
+
+       function okFunction(submitData){
+          var rtinfo=submitData.responseText;
+	      //A.alert('铜冠移动OA',rtinfo.split('|')[0]);
+	      alert(rtinfo.split('|')[0]); 
+	      if(rtinfo.split('|')[0]=="发送成功") 
+	      {
+	      	$native.openWebView('mail.html?mailbox=收件箱&datatype=2');
+	      }
+	      else
+	      {
+	      	$native.openWebView('mail.html?mailbox=草稿箱&datatype=2');
+	      }
+
+       }
+
+
+contentHeight();
+$('#mainart').on('articleload',function(){
+
+if($native.getParameter('mailid')!="")
+{
+    
+	$util.server({
+	url : 'http://maildetail.jsp',
+	type : 'post',
+	data : 'mailid='+$native.getParameter('mailid'),
+	dataType : 'json',
+	success : function(data){	 
+	//alert(data.Table.Table[0].mailsubject);	
+	//alert(data);	
+	//alert(unescape($native.getParameter('mailbox')));
+		if(unescape($native.getParameter('mailbox'))=="回复")
+		{
+		$("#to").val(data.Table.Table[0].senduserid);
+		$("#uid").val(data.Table.Table[0].sendusercode);
+		$("#subject").val("回复："+data.Table.Table[0].mailsubject);
+		}
+		else if(unescape($native.getParameter('mailbox'))=="草稿箱")
+		{
+		 $("#to").val(data.Table.Table[0].receiveuserid);
+		 $("#uid").val(data.Table.Table[0].receiveusercode);
+		 $("#subject").val(data.Table.Table[0].mailsubject);
+		 $("#content").val(data.Table.Table[0].mailcontent);
+		 var attrinfo="<ui>"
+		 for(var i=0;i<(data.tbatr.tbatr||[]).length;i++)
+		 {
+		 	if(data.tbatr.tbatr[i].attachid!="0")
+		 	{
+		 	attrinfo=attrinfo+"<li><a>"+data.tbatr.tbatr[i].attachname+"</a></li>";
+		 	}
+		 }
+		 attrinfo=attrinfo+"</ui>";
+		 document.getElementById("attr").innerHTML=attrinfo;
+		}
+		else if(unescape($native.getParameter('mailbox'))=="转发")
+		{
+		 $("#subject").val("转发："+data.Table.Table[0].mailsubject);
+		 $("#content").val("------以下是转发内容-----\n"+data.Table.Table[0].mailcontent+"\n-----以上是转发内容-----\n");
+		 var attrinfo="<ui>"
+		 for(var i=0;i<(data.tbatr.tbatr||[]).length;i++)
+		 {
+		 	if(data.tbatr.tbatr[i].attachid!="0")
+		 	{
+		 	attrinfo=attrinfo+"<li><a>"+data.tbatr.tbatr[i].attachname+"</a></li>";
+		 	}
+		 }
+		 attrinfo=attrinfo+"</ui>";
+		 document.getElementById("attr").innerHTML=attrinfo;
+		}
+	},
+	error : function(data){
+	ExMobiWindow.alert('请求数据异常，请检查网络');
+	},
+isBlock:true
+	});
+}
+$util.server({
+url : 'http://oadep.jsp',
+type : 'post',
+data : '',
+dataType : 'json',
+success : function(data){
+//alert(data);
+if(data.error==null)
+{A.tmpl("#divorg2","divdep2_template",data,"replace");
+ //alert("ok2");
+ //var test=document.getElementById("org");
+ //alert(test);
+}
+else
+{
+ExMobiWindow.alert("会话过期，请重新登录");
+}
+ //alert("123");
+},
+error : function(data){
+ExMobiWindow.alert('无法连接到网络，请检查网络');
+},
+isBlock:false
+});
+});
+
+$('#mail_address2').on('articleload',function(){
+
+});
+$('#btn_send').click(function(){
+	if($('#uid').val()!="" && $('#to').val()!="")
+	{
+		submitData();
+		$native.openWebView('mail.html?mailbox=收件箱&datatype=2');
+	}
+	else
+	{
+		ExMobiWindow.alert("接收人不能为空");
+	}
+
+});
+$('#btn_actionsheet').tap(function(){
+	    A.Popup.actionsheet([{
+	                text : '发送',
+	                handler : function(){
+	                    
+	                    if($('#uid').val()!="" && $('#to').val()!="")
+						{
+							submitData("1");
+							
+						}
+						else
+						{
+							ExMobiWindow.alert("接收人不能为空");
+						}
+	                }
+	            },{
+	                text : '存草稿',
+	                handler : function(){
+	                    submitData("2");
+	                    
+	                }
+	            }
+	            ]);
+	});
+</script>
+</body>
+</html>

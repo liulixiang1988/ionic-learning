@@ -1,0 +1,386 @@
+<html>
+
+    <head>
+
+       <meta charset="UTF-8"/>
+
+       <title show="false">Hello World</title>
+
+       <script>
+
+       <![CDATA[
+
+var progressbar = new ProgressBar();
+
+function setSangfor(){
+
+       var vpnInfo = new SangforInfo();
+
+       vpnInfo.vpnIp = $("vpnIp").value;
+
+       vpnInfo.vpnPort=$("vpnPort").value;
+
+       vpnInfo.authName=$("authName").value;
+
+       vpnInfo.authPassword=$("authPassword").value;
+
+       vpnInfo.certFile=$("certFile").value
+
+       vpnInfo.certPassword=$("certPassword").value;
+
+       SangforUtil.saveSangforInfo(vpnInfo);
+
+       if($("sms").checked){
+
+           alert("用户信息配置成功，短信验证码获取需配置深信服服务器及开启短信模拟网关工具！");
+
+       }
+
+    }
+
+function $(id){
+
+    return document.getElementById(id);
+
+}
+
+ 
+
+function getSangfor(){
+
+    var SangInfo=SangforUtil.getSangforInfo();
+
+    if(SangInfo.vpnIp.length>=0){
+
+       $("vpnIp").value=SangInfo.vpnIp;
+
+        $("vpnPort").value=SangInfo.vpnPort;
+
+        $("authName").value=SangInfo.authName;
+
+        $("authPassword").value=SangInfo.authPassword;
+
+        $("certPassword").value=SangInfo.certPassword;
+
+        $("certFile").value=SangInfo.certFile;
+
+    }
+
+}
+
+function doShow(){
+
+    var switchObj = document.getElementById("switchid");
+
+    if(switchObj.checked){
+
+       $("sangfor").style.display = "block";
+
+       getSangfor();
+
+    }else{
+
+       $("sangfor").style.display = "none";
+
+    }
+
+}
+
+function startSangforVpn(){
+
+    
+
+    progressbar.setMessage("VPN连接中...");
+
+    progressbar.show();
+
+    SangforUtil.startSangforVpn(testVpnCallBack);
+
+}
+
+function testVpnCallBack(result){
+
+    progressbar.cancel();
+
+    if(result == 0){
+
+          alert("vpn服务器登录成功");
+
+    }else if(result == 1){
+
+       alert("vpn服务器初始化连接失败，请检查ip，port是否正确");
+
+    }else if(result == 2){
+
+       alert("vpn服务器认证失败，请检查用户名，密码是否正确");
+
+    }else if(result == 3){
+
+       smsTime(0);
+
+        smsCheckout();
+
+    }else if(result == 4){
+
+       alert("vpn服务器设置硬件特征码校验，等待管理员审批；");
+
+    }else{
+
+        alert("返回连接状态码异常，为:"+result);
+
+    }
+
+}
+
+var time=30;
+
+var timeid;
+
+function smsTime(type){
+
+    if(type==1){
+
+       SangforUtil.refreshSms();
+
+    }
+
+    $("resendBtn").disabled=true;
+
+    timeid = window.setInterval("showTime()",1000);
+
+    $("resendBtn").value="30秒";
+
+}
+
+function showTime(){
+
+    if(time!=0){
+
+       time--;
+
+       $("resendBtn").value=time+"秒";
+
+    }else{
+
+       $("resendBtn").value="重新发送";
+
+       time=30;
+
+       window.clearInterval(timeid);
+
+       $("resendBtn").disabled=false;
+
+    }
+
+}
+
+function smsCheckout(){
+
+    $("smsCheck").show();
+
+}      
+
+function stopSangforVpn(){
+
+    SangforUtil.stopSangforVpn(stopVpnCallBack);
+
+}
+
+//vpn关闭回调函数
+
+function stopVpnCallBack(result){
+
+    if(result == 0){
+
+        alert("vpn服务器关闭连接成功");
+
+    }else if(result == 1){
+
+       alert("vpn服务器关闭连接失败");
+
+    } 
+
+}
+
+function doGetSangforVpnStatus(){
+
+    var vpnStatus = SangforUtil.getSangforVpnStatus();
+
+    if(vpnStatus == 0){
+
+      alert("vpn服务器登录成功");
+
+    }else if(vpnStatus == 1){
+
+      alert("vpn服务器还未初始化");
+
+    } else if(vpnStatus == 2){
+
+      alert("vpn服务器初始化成功，但还未登录");
+
+    }
+
+}
+
+function smsLogin(){
+
+    progressbar.setMessage("短信登录中...");
+
+    var smsCode=$("smscode").value;
+
+    if(smsCode==""){
+
+       alert("请填入短信校验码！");
+
+    }else{
+
+       progressbar.show();
+
+       SangforUtil.startSmsLogin(smsCode,smsCallBack);
+
+    }
+
+}
+
+ 
+
+function smsCallBack(result){
+
+    progressbar.cancel();
+
+    if(result==0){
+
+       closeDialog();
+
+       sign=0;
+
+       alert("短信登陆成功！");
+
+    }else if(result==2){
+
+       $("loginResult").innerHTML="<font color=\"red\">短信登录失败，请重新登录!</font>";
+
+    }else if(result==4){
+
+       closeDialog();
+
+       alert("VPN服务器设置硬件特征码校验，等待管理员审批!");
+
+    }else{
+
+       $("loginResult").innerHTML="<font color=\"red\">短信登录响应码异常，响应码为:"+result+"</font>";
+
+    }
+
+}
+
+function testhh()
+{
+	alert('ttttt');
+	
+}
+       ]]>
+
+       </script>
+
+    </head>
+
+    <header>
+
+    <titlebar caption="返回" iconhref="script:close" hidericon="true" title="深信服VPN"></titlebar>
+
+    </header>
+
+    <body style="background-image:url(res:image/bg/bg_main.jpg)">
+
+    使用深信服VPN
+
+    <!-- <div href="" style="border-size:1;border-radius:4;width:98%">
+
+    1、关闭WIFI网络，开启移动网络并保证移动网络数据交互正常<br/>
+
+    2、客户端系统设置中IP和端口配置为内网地址<br/>
+
+    3、VPN连接成功。<br/>
+
+    </div> -->
+
+    <div style="background-color:white;border-size:1;border-radius:4;">
+
+    <font style="width:76%">使用深信服VPN</font><switch id="switchid" ontext="是" offtext="否" value="" onclick="doShow()"/>
+
+    <div id="sangfor" style="display:">
+
+    <hr color=""></hr>
+
+    <font style="width:30%">深信服IP</font>
+
+    <input type="text" value="www.miap.cc" id="vpnIp" style="width:70%;" hideborder="true" prompt="必填"></input><br/>
+
+    <hr color=""></hr>
+
+    <font style="width:30%">深信服Port</font>
+
+    <input type="text" value="" id="vpnPort" style="width:70%" hideborder="true" prompt="必填"></input><br/>
+
+    <hr color=""></hr>
+
+    <font style="width:30%">用户名</font>
+
+    <input type="text" value="" id="authName" style="width:70%" hideborder="true" prompt="必填"></input><br/>
+
+    <hr color=""></hr>
+
+    <font style="width:30%">密码</font>
+
+    <input type="password" value="" id="authPassword" style="width:70%" hideborder="true" prompt="必填"></input><br/>
+
+    <hr color=""></hr>
+
+    <font style="width:30%">证书</font><input type="file" value="" defaultpath="res:page/5.1.0" id="certFile" style="width:70%"></input><br/>
+
+    <font style="width:30%">证书密码</font>
+
+    <input type="text" value="" defaultpath="res:page/5.1.0" id="certPassword" style="width:70%" hideborder="true" prompt="必填"></input><br/>
+
+    <hr color=""></hr>
+
+    <input type="checkbox" caption="短信验证" id="sms"></input>  <hr color=""></hr>
+
+    <input type="button" value="存储" onclick="setSangfor()" style="width:40%"/>
+
+    <input type="button" value="VPN状态" onclick="doGetSangforVpnStatus()" style="width:40%;align:right"/><br></br>
+
+    <input type="button" value="启动VPN" onclick="startSangforVpn()" style="width:40%"/>
+
+    <input type="button" value="关闭VPN" onclick="stopSangforVpn()"style="width:40%;align:right"/>
+
+    </div>
+
+    </div>
+
+    </body>
+
+    <dialogset>
+
+       <dialog id="smsCheck" icon="res:image/sms.png" title="短信验证" isshowfooter="false" style="padding:0">
+
+           <div id="loginResult" style="width:100%;text-align:center;text-valign:middle;margin:0 0 10 0">
+
+              
+
+           </div>
+
+           <input id="smscode" type="text" prompt="输入短信校验码" style="width:60%;margin:0 3 0 16"/>
+
+           <input type="button" id="resendBtn" value="重新发送" style="width:40%;color:blue;margin:0 16 0 3" onclick="smsTime(1)" ispersistnormal="true" />
+
+           <input type="button" value="登录" onclick="smsLogin()" style="width:50%;margin:10 0 0 0;border-radius:0" />
+
+           <input type="button" value="test" onclick="doGetSangforVpnStatus()" style="width:50%;margin:10 0 0 0;border-radius:0"/>
+
+       </dialog>
+
+    </dialogset>
+
+</html>

@@ -1,0 +1,5 @@
+{
+list : [
+		{title:'数据更新于'+A.Util.formatDate(new Date(),'MM-dd hh:mm')}
+		]
+}

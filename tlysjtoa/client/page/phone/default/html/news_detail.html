@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/agile/css/app.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+    <style>
+    	body {
+    		font-size:12px;
+    	}
+    	.scroller {
+    		padding:15px;
+    	}
+    	.news-title {
+    		width:100%;
+    		font-size:16px;
+    		margin-bottom:10px;
+    		font-weight:bold;
+    	}
+    	.author {
+    		font-style: italic;
+    		float:left;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.date {
+    		font-style: italic;
+    		float:right;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.news-content {
+    		margin-top:5px;
+    		width:100%;
+    	}
+    	.news-content img {
+    		width:100%;
+    	}
+    	.titlesize
+    	{
+    		font-size:12pt;
+    	}
+    	p{color:black;font-size:14px;}
+    </style>
+</head>
+<body>
+<div id="section_container">
+	<section id="news_detail_section" class="active">
+		<header class="bar bar-nav">
+			<a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+		    <h1 class="title">信息详情</h1>
+	    </header>
+	    <article id="news_detail_article" class="active" data-scroll="true">
+	    <div class="scroller">
+	    <div id="newdetaildiv">
+	    <script type="text/html" id="newdetail_template">			
+		    	<div class="news-title animated fadeInLeft" style="text-align:center"><%=ds.ds[0].contentsubject %> </div>
+		    	<span class="author animated fadeInLeft">发布人： <%=ds.ds[0].createusername %></span>
+		    	<span class="date animated fadeInRight"><font color="green"><%=ds.ds[0].lastmodifytime %></font></span>
+		    	<div class="clearfix"></div>
+		    	<hr />
+		    	<span class="bodysize"><%=#ds.ds[0].contentinfo %></span>
+	    	
+	    	</script>
+	    	</div>	
+	    	</div>
+	    	<!--input type="button" value="bodycontent" onclick="alert(document.body.innerHTML)"></input>	    	
+	        <input type="button" value="gzlx" onclick="test2()"></input-->	
+	    </article>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script type="text/javascript" src="../../script/underscore-min.js"></script>
+<!-- jquery -->
+<script type="text/javascript" src="../../script/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/app/tgit.js"></script>
+<script>
+
+$('#news_detail_article').on('articleload',function(){
+
+$util.server({
+url : 'http://newsdetail.jsp',
+type : 'post',
+data : 'classid='+$native.getParameter('classid')+'&contentid='+$native.getParameter('contentid'),
+dataType : 'json',
+success : function(data){
+data.ds.ds[0].contentinfo=data.ds.ds[0].contentinfo.split("&quot;").join('');
+//alert(data.ds.ds[0].contentinfo);
+//alert(data);
+ A.tmpl("#newdetaildiv","newdetail_template",data,"replace");
+ 
+//$("a[href*='.doc']").click(function(){
+	//alert($(this).attr('href'));
+	//alert($(this).attr('href').substr($(this).attr('href').lastIndexOf('/')+1),$(this).attr('href').length-$(this).attr('href').lastIndexOf('/'));
+	//var fn=$(this).attr('href').substr($(this).attr('href').lastIndexOf('/')+1,$(this).attr('href').length-$(this).attr('href').lastIndexOf('/'))
+	//ClientUtil.download($(this).attr('href'),"res:"+fn, null,null,false);
+  	//NativeUtil.open("res:"+fn);
+//});
+
+$("a").click(function(){
+//alert($(this).text());
+	if($(this).attr('href').match(/doc$|docx$|xlsx$|xls$|jpg$|gif$|pdf$/)){
+		var url='http://getnewsattach.jsp?filename='+$(this).attr('href').split('uploadfile/')[1];
+		//var filename="res:temp/"+$(this).text();
+		var filename=$(this).text();
+		//alert(url);alert(filename);
+		openfile(url,filename);
+  		
+	}
+});
+$('img[href*="CMS"]').attr("width", "300px");
+$('img[href*="CMS"]').attr("style", "width:300px");
+},
+error : function(data){
+errormsg('请求数据异常1'+data.responseText);
+},
+isBlock:true
+});});
+
+function test2()
+{
+	ClientUtil.download("http://www.tlys/Portal/WorkKeep/getattach.aspx?attachid=373513&attachname=1109172293302g7xPG.doc","res:gzlx.doc", null,null,true);
+	NativeUtil.open("res:gzlx.doc");
+}
+
+</script>
+
+</body>
+</html>

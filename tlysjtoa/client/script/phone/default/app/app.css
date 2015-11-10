@@ -1,0 +1,51 @@
+﻿/* demo 区域*/
+.updated-text {
+  	position: absolute;
+  	left: 0;
+  	right: 0;
+  	padding: 10px 0;
+  	font-size: 11px;
+  	text-align: center;
+}
+.demo-btn{
+	padding:10px;
+}
+.demo-btn > *{
+	margin:5px 0px;
+}
+.demo-btn-group{
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+.demo-btn-group > *{
+    margin: 5px 0;
+    color:#ffffff;
+    font-size:12px;
+}
+.demo-grid{
+    padding: 10px 5px 5px 5px;
+}
+.demo-grid>div{
+    text-align: center;
+    border:1px solid #cccccc;
+}
+.demo-content{
+	width: auto;
+    height: auto;
+	margin: 10px;
+	text-align:center;
+}
+.demo-content span{
+	width: 50px;
+    height: 50px;
+    margin: 3px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    border-radius: 25px;
+}
+.col-w7 {
+	width:70%;
+}

@@ -1,0 +1,202 @@
+<!-- HTML5文件 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/agile/css/app.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+    <style>
+    	body {
+    		font-size:12px;
+    	}
+    	.scroller {
+    		padding:15px;
+    	}
+    	.news-title {
+    		width:100%;
+    		font-size:16px;
+    		margin-bottom:10px;
+    		font-weight:bold;
+    	}
+    	.author {
+    		font-style: italic;
+    		float:left;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.date {
+    		font-style: italic;
+    		float:right;
+    		margin-bottom:5px;
+    		color:#cccccc;
+    	}
+    	.news-content {
+    		margin-top:5px;
+    		width:100%;
+    	}
+    	.news-content img {
+    		width:100%;
+    	}
+    	.titlesize
+    	{
+    		font-size:12pt;
+    	}
+    	.divbottom
+    	{
+    	border-bottom:1px dashed gray;
+    	
+    	}
+    	p{color:black;font-size:14px;}
+    </style>
+</head>
+<body>
+<div id="section_container">
+	<section id="news_detail_section" class="active">
+		<header class="bar bar-nav">
+			<a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+		    <h1 class="title">采购合同管理</h1>
+	    </header>
+	    <article id="cght_pro_article" class="active" data-scroll="true">
+	       	<div class="scroll">
+	       	<div id="doprocess">
+	       		<textarea id="yijian" rows="3" placeholder="处理意见"></textarea>
+	       		<select id="nextnode">
+	       			<option value="" selected="true">市场部审核</option>
+	       		</select>
+	       		<input type="text" id="nextdoperson" value="" placeholder="下一关处理人"></input>
+	       		<input type="hidden" id="nextdopersonuid" value=""></input>
+	       	</div>	
+	       	<div id="divcght">
+	       	<script type="text/html" id="cghtpro_template">	
+	       	<div class="card">	       		
+	       		<div  class="bodysize " style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">业务单号：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_businessid%></div><div   style="width:10%; float: right;line-height:30px;" onclick="showdiv('ihead')"><font class="icon icon-down-nav"></font></div>
+	    		<div  class="bodysize divbottom" style="line-height:30px;padding-left: 8px;"><font style="font-weight:bold">合同名称：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_contractname%></div>	    		
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">甲方：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_partya%></div>
+	    	    <div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">乙方：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_partyb%></div>	    		
+	    	    <div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">合同金额：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_contractaccount%> </div>
+	    	    <div id="ihead" style="display:none">	    		
+	    		<div  class="bodysize divbottom" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">合同编号：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_contractno%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">签订日期：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_signdate%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">签署人：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_signatory%></div>	    		
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">开始日期：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_startdate%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">结束日期：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_enddate%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">责任人：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_zrr%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">采购员：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_buyer%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">是否招投标：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_bidding%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">是否比价：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_parity%></div>	    		
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">币种：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_currency%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">付款方式：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_paymode%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">已付金额：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_payccount%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">开票金额：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_kpaccount%></div>
+	    		<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">合同状态：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_executionstate%></div>	    	    
+	    	    <div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">丙方：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_partyc%></div>
+	    	    <div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">质保约定：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_zbyd%></div>
+	    	    <div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">所属项目：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_projectname%></div>
+	    	    <div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">合同描述：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_contractdescription%></div>
+	    	    <div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">备注：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_remark%></div>
+	    	    <div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">会签部门：</font><%=BusinessOrderData.NewDataSet[1].ds.wf_hqbm%></div>	    	    	    	   
+	    	   </div>
+	    	</div>	
+	    	<div class="bodysize divbottom"><font style="font-weight:bold">合同附件：</font></div>
+	    	<%
+	    	for(var i=0;i<(BusinessOrderData.NewDataSet[0].ds||[]).length;i++)
+			{
+	    	%>
+	    	<div class="card">	    		
+	    	    	<div  class="bodysize" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">文件名称：</font><%=BusinessOrderData.NewDataSet[0].ds[i].wf_documentoldname%></div><div  style="width:10%; float: right;line-height:30px;" onclick="showdiv('lline<%=i%>')"><font class="icon icon-down-nav"></font></div>
+	    	    	<div  class="bodysize divbottom" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">文档类型：</font><%=BusinessOrderData.NewDataSet[0].ds[i].wf_classify%>  <font style="font-weight:bold">文档编号：</font><%=BusinessOrderData.NewDataSet[0].ds[i].wf_documentnumber%></div>
+	    	    	<div id="lline<%=i%>" style="display: none">
+	    	    	<div  class="bodysize divbottom" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">提交人：</font><%=BusinessOrderData.NewDataSet[0].ds[i].wf_createusername%> <font style="font-weight:bold">提交时间：</font><%=BusinessOrderData.NewDataSet[0].ds[i].wf_documentuploadtime%></div>
+	    	    	<div  class="bodysize divbottom" style="line-height:30px;padding-left: 8px"><font style="font-weight:bold">版本：</font><%=BusinessOrderData.NewDataSet[0].ds[i].wf_documentversion%> <font style="font-weight:bold">打印版：</font><%=BusinessOrderData.NewDataSet[0].ds[i].wf_isprint%><font style="font-weight:bold"> 电子版：</font><%=BusinessOrderData.NewDataSet[0].ds[i].wf_edocument%></div>	    	    
+	    	        </div>
+	    	</div>
+	    	<%
+	    	}
+	    	%>
+	    	</script>
+	    	</div>	
+	    	</div>
+	    </article>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script type="text/javascript" src="../../script/underscore-min.js"></script>
+<!-- jquery -->
+<script type="text/javascript" src="../../script/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/app/tgit.js"></script>
+<script>
+document.addEventListener("plusready",function(){
+	//ExMobiWindow.alert('22');
+var jsontext={"?xml":{"@version":"1.0","@encoding":"utf-8"},"BusinessOrderData":{"@OrderId":"DKCUU-CEXKJ-YARHT-ISELN","@FlowId":"0SSJ0-2HCPA-ZF384-GGYRN","@NodeId":"endnode","@TemplateId":"55TCH-N4L42-635SF-I6KH2","NewDataSet":[{"@EntityCode":"mm_po_attachinfo","@IsMainEntity":"0","@Template":"0","ds":[{"@status":"0","wf_e__id":"Yy5vnlwlLVV03Mo","wf_hh":"10","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"image/pjpeg","wf_documentoldname":"金亿达HP服务器报价6月22日.jpg","wf_documentnumber":"","wf_documentsize":"152.45K","wf_documenttype":".jpg","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345203480.jpg","wf_classify":"正文"},{"@status":"0","wf_e__id":"Fi6WO6pPXWiRe2A","wf_hh":"20","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"image/pjpeg","wf_documentoldname":"金亿达HP服务器报价5月13日.jpg","wf_documentnumber":"","wf_documentsize":"142.69K","wf_documenttype":".jpg","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345237758.jpg","wf_classify":"正文"},{"@status":"0","wf_e__id":"skqqnbUK2yKHpx7","wf_hh":"30","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"application/msword","wf_documentoldname":"欣荣商贸-5.13服务器报价.doc","wf_documentnumber":"","wf_documentsize":"19.50K","wf_documenttype":".doc","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345200742.doc","wf_classify":"正文"},{"@status":"0","wf_e__id":"KpSuEvHf5bgOtTM","wf_hh":"50","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"image/pjpeg","wf_documentoldname":"HP服务器 欣荣15-06-12报价.jpg","wf_documentnumber":"","wf_documentsize":"569.14K","wf_documenttype":".jpg","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345257537.jpg","wf_classify":"正文"},{"@status":"0","wf_e__id":"kE6PtT9p6DVWDdF","wf_hh":"60","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"image/pjpeg","wf_documentoldname":"金亿达报价1.jpg","wf_documentnumber":"","wf_documentsize":"130.64K","wf_documenttype":".jpg","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345253872.jpg","wf_classify":"正文"},{"@status":"0","wf_e__id":"FpzUf9BWLYnebJx","wf_hh":"70","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"application/msword","wf_documentoldname":"欣荣商贸-6.22服务器及内存报价.doc","wf_documentnumber":"","wf_documentsize":"46.50K","wf_documenttype":".doc","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345205243.doc","wf_classify":"正文"},{"@status":"0","wf_e__id":"lqOApZzy3P3nGxF","wf_hh":"80","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"application/msword","wf_documentoldname":"中旭有色服务器报价.doc","wf_documentnumber":"","wf_documentsize":"20.00K","wf_documenttype":".doc","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345247671.doc","wf_classify":"正文"},{"@status":"0","wf_e__id":"ZuCZtFq2Ssva4H8","wf_hh":"90","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"image/pjpeg","wf_documentoldname":"金亿达报价2.jpg","wf_documentnumber":"","wf_documentsize":"107.04K","wf_documenttype":".jpg","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345262243.jpg","wf_classify":"正文"},{"@status":"0","wf_e__id":"qoB9r34cQnD6in3","wf_hh":"100","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"image/pjpeg","wf_documentoldname":"欣荣服务器内存报价0622.jpg","wf_documentnumber":"","wf_documentsize":"178.13K","wf_documenttype":".jpg","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345284431.jpg","wf_classify":"正文"},{"@status":"0","wf_e__id":"uY7MXBdvO0WFDUa","wf_hh":"110","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"application/vnd.ms-excel","wf_documentoldname":"讯桥-铜陵有色服务器询价.xls","wf_documentnumber":"","wf_documentsize":"29.00K","wf_documenttype":".xls","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345208352.xls","wf_classify":"正文"},{"@status":"0","wf_e__id":"WMgXG944Kw5WKdr","wf_hh":"120","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"image/pjpeg","wf_documentoldname":"欣荣服务器报价0513.jpg","wf_documentnumber":"","wf_documentsize":"185.00K","wf_documenttype":".jpg","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345272087.jpg","wf_classify":"正文"},{"@status":"0","wf_e__id":"axxd6sZ2vdC1Mmr","wf_hh":"130","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"image/pjpeg","wf_documentoldname":"安徽风格数码服务器报价.jpg","wf_documentnumber":"","wf_documentsize":"152.01K","wf_documenttype":".jpg","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-25","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062511345228885.jpg","wf_classify":"正文"},{"@status":"0","wf_e__id":"mG7mB87ZNwZ2RXt","wf_hh":"140","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_documentversion":"","wf_documentformats":"application/octet-stream","wf_documentoldname":"金亿达HP服务器采购合同2015P079.doc","wf_documentnumber":"","wf_documentsize":"62.50K","wf_documenttype":".doc","wf_isprint":"是","wf_createusername":"王鹏","wf_remark":"","wf_documentuploadtime":"2015-06-26","wf_edocument":"是","wf_classifyid":"01","wf_documentnewname":"2015062610244414058.doc","wf_classify":"正文"}]},{"@EntityCode":"mm_purchasecontract_head","@IsMainEntity":"1","@Template":"0","ds":{"@status":"0","wf_e__id":"viQ6QSUZz2ywutw","wf_hh":"10","wf_b__id":"DKCUU-CEXKJ-YARHT-ISELN","wf_partya":"铜陵有色股份铜冠信息科技有限责任公司","wf_approval2":"崔健[2015/6/25]：【同意】\n周广辉[2015/6/26]：【同意】","wf_applytime":"2015/6/25 10:56:11","wf_partyaid":"1000183","wf_contractname":"HP服务器采购合同","wf_approval3":"洪明华[2015/6/26]：【同意】","wf_bidding":"","wf_contractdescription":"公司因业务需要，拟采购一批HP服务器等设备。经过询价比较铜陵市金亿达科技有限责任公司报价较低，建议与铜陵市金亿达科技有限责任公司签订采购合同，妥否？请批示！","wf_signatory":"王鹏","wf_approval1":"丁勇[2015/6/25]：【同意】标注所用项目名称","wf_applyemploymeename":"王鹏","wf_depname":"市场开发部","wf_businessid":"150100001317","wf_attachement_gwzw":"","wf_partyc":"","wf_partybid":"2000081","wf_projectid":"","wf_partyb":"铜陵市金亿达科技有限责任公司","wf_applyemploymeeid":"210","wf_executionstate":"审核","wf_partycid":"","wf_currency":"人民币","wf_projectname":"","wf_contractno":"TGXX2015P079","wf_contract_gwzw":"","wf_hqbmid":"3524,3525,3532,1192","wf_orgcode":"5941","wf_zbyd":"HP服务器三年质保，其他设备一年质保","wf_enddate":"2015-06-30","wf_contractaccount":"229100.000","wf_buyer":"王鹏","wf_depcode":"3525","wf_buyyerid":"1_210","wf_hqbm":"综合管理部,市场开发部,系统运维部,自动化部","wf_paymode":"承兑汇票","wf_orgname":"铜冠信息科技公司","wf_kpaccount":"229100.000","wf_startdate":"2015-06-25","wf_parity":"是","wf_financialstatus":"","wf_signdate":"2015-06-25","wf_remark":"388服务器70000元为自动化使用，360服务器14700（天马山）和388服务器18350（铜山矿）为考勤系统使用，388服务器45950*2及内存硬盘为有色医疗项目使用，监控主机为铜冠物流监控项目使用","wf_zrr":"","wf_paycccount":""}},{"@EntityCode":"mm_purchasecontract_line","@IsMainEntity":"0","@Template":"0"},{"@EntityCode":"mm_po_attachinfo","@IsMainEntity":"0","@Template":"1","ds":{"@status":"0","wf_e__id":"","wf_hh":"","wf_b__id":"0","wf_documentversion":"","wf_documentformats":"","wf_documentoldname":"","wf_documentnumber":"","wf_documentsize":"","wf_documenttype":"","wf_isprint":"","wf_createusername":"","wf_remark":"","wf_documentuploadtime":"","wf_edocument":"","wf_classifyid":"","wf_documentnewname":"","wf_classify":""}},{"@EntityCode":"mm_purchasecontract_head","@IsMainEntity":"1","@Template":"1","ds":{"@status":"0","wf_e__id":"","wf_hh":"","wf_b__id":"0","wf_partya":"","wf_approval2":"","wf_applytime":"","wf_partyaid":"","wf_contractname":"","wf_approval3":"","wf_bidding":"","wf_contractdescription":"","wf_signatory":"","wf_approval1":"","wf_applyemploymeename":"","wf_depname":"","wf_businessid":"","wf_attachement_gwzw":"","wf_partyc":"","wf_partybid":"","wf_projectid":"","wf_partyb":"","wf_applyemploymeeid":"","wf_executionstate":"","wf_partycid":"","wf_currency":"","wf_projectname":"","wf_contractno":"","wf_contract_gwzw":"","wf_hqbmid":"","wf_orgcode":"","wf_zbyd":"","wf_enddate":"","wf_contractaccount":"","wf_buyer":"","wf_depcode":"","wf_buyyerid":"","wf_hqbm":"","wf_paymode":"","wf_orgname":"","wf_kpaccount":"","wf_startdate":"","wf_parity":"","wf_financialstatus":"","wf_signdate":"","wf_remark":"","wf_zrr":"","wf_paycccount":""}},{"@EntityCode":"mm_purchasecontract_line","@IsMainEntity":"0","@Template":"1","ds":{"@status":"0","wf_e__id":"","wf_hh":"","wf_b__id":"0","wf_paycondition":"","wf_paycontext":"","wf_comments":"","wf_paymentratio":"","wf_paytime":"","wf_rownum":""}}],"FlowAction":{"@NodeID":"endnode","Node":{"FlowId":null,"nodeid":"endnode","nodename":"结束","NodeNum":"900","NodeType":"2","ExecUsersFrom":"0","ExecUsersId":null,"ExecUsersDescription":null,"DataItemCode":"","RunType":"1","PassType":"1","Processlabel":"1","NodeAppType":"0","NodeAppPath":"55TCH-N4L42-635SF-I6KH2","NodeAppDefine":null,"AllowSelectExecutor":"1","AllowCancel":"0","AllowRetake":"0","AllowSendBack":"0","AllowForward":"1","AllowsendOpinion":"1","OpinionAppendTo":null,"TimeOutCondition":null,"TimeOutMsgSendBy":"0","TimeOutMsg":null,"TimeOutMsgReceiver":"1","TimeOutLog":null,"AttachmentControl":"1","Description":null,"CreateTime":null,"CreateUserid":null,"UpdateTime":null,"UpdateUserId":null,"AllowCopy":"0","TraceReserve":"0","NodeReportType":null,"NodeReportMode":null,"SelfReportDefine":"664","acl":{"DataItem":{"classify":"1,0,0,0","classifyid":"1,0,0,0","documentuploadusername":"1,0,0,0","documentformats":"1,0,0,0","documentnewname":"1,0,0,0","documentnumber":"1,0,0,0","documentoldname":"1,0,0,0","documentsize":"1,0,0,0","documenttype":"1,0,0,0","documentuploadtime":"1,0,0,0","documentversion":"1,0,0,0","edocument":"1,0,0,0","documentisprint":"1,0,0,0","remarks":"1,0,0,0","applyemploymeeid":"1,0,0,0","applyemploymeename":"1,0,0,0","applytime":"1,0,0,0","approval1":"1,0,0,0","approval2":"1,0,0,0","approval3":"1,0,0,0","attachement_gwzw":"1,0,0,0","bidding":"1,0,0,0","businessid":"1,0,0,0","buyer":"1,0,0,0","buyerid":"1,0,0,0","contract_gwzw":"1,0,0,0","contractaccount":"1,0,0,0","contractdescription":"1,0,0,0","contractname":"1,0,0,0","contractno":"1,0,0,0","currency":"1,0,0,0","depcode":"1,0,0,0","depname":"1,0,0,0","enddate":"1,0,0,0","executionstate":"1,0,0,0","financialstatus":"1,0,0,0","hqbm":"1,0,0,0","hqbmid":"1,0,0,0","kpaccount":"1,0,0,0","orgcode":"1,0,0,0","orgname":"1,0,0,0","parity":"1,0,0,0","partya":"1,0,0,0","partyaid":"1,0,0,0","partyb":"1,0,0,0","partybid":"1,0,0,0","partyc":"1,0,0,0","partycid":"1,0,0,0","paycccount":"1,0,0,0","paymode":"1,0,0,0","projectid":"1,0,0,0","projectname":"1,0,0,0","remark":"1,0,0,0","signatory":"1,0,0,0","signdate":"1,0,0,0","startdate":"1,0,0,0","zbyd":"1,0,0,0","zrr":"1,0,0,0","comments":"1,0,0,0","paycondition":"1,0,0,0","paycontext":"1,0,0,0","paymentratio":"1,0,0,0","paytime":"1,0,0,0","rownum":"1,0,0,0"},"MLTable":{"mtl_purch_attach":{"@IsDataLineFromDs":"True","@DataLineFromDsName":"sys_attach_upload","#text":"0,0"},"mtl_cght":{"@IsDataLineFromDs":"False","@DataLineFromDsName":"","#text":"0,0"}}},"para1":null,"para2":null,"para3":null,"para4":null,"para5":null,"para6":null,"para7":null,"para8":null,"para9":null,"para10":null},"NextNodes":null,"Action":{"@sendtonode":"","@sendtonodename":"","@sendtouserid":"","@sendtousername":"","@send":"1","@adduser":"0","@adduserid":"","@addusername":""}}}};
+//ExMobiWindow.alert(jsontext.BusinessOrderData["@OrderId"]);
+//ExMobiWindow.alert(jsontext.BusinessOrderData.NewDataSet[1].ds.wf_businessid);
+//ExMobiWindow.alert(jsontext.BusinessOrderData.NewDataSet[1].ds.wf_contractname);
+//ExMobiWindow.alert(jsontext.BusinessOrderData.NewDataSet[0].ds[0].wf_e__id);
+//for(var i=0;i<(jsontext.BusinessOrderData.NewDataSet[]||).length;i++)
+//{
+	//ExMobiWindow.alert(jsontext.BusinessOrderData.NewDataSet[i].@EntityCode);
+//}
+//
+});
+$('#cght_pro_article').on('articleload',function(){
+$util.server({
+url : 'http://newworkflow.jsp',
+type : 'post',
+data : 'businessId=SA3YB-6NBKQ-I5V5D-7I6YL&flowId=0SSJ0-2HCPA-ZF384-GGYRN&nodeId=startnode&bFlowOrderId=WRQFU-XHBXU-TBHBX-LGWTA',
+dataType : 'json',
+success : function(data){  
+ if("error" in data)
+  {
+	errormsg(data.error);
+  }
+ else
+ {
+ 	ExMobiWindow.alert(data.BusinessOrderData.FlowAction.NextNodes.NextNode["@ExecUsersId"]);
+ A.tmpl("#divcght","cghtpro_template",data,"replace");
+ }
+},
+error : function(data){
+errorconfirm('会话过期，请重新登录');
+},
+isBlock:true
+});});
+
+function showdiv(divid){
+	//alert(divid);
+	//var clickdivid="div"+divid
+	var obj=document.getElementById(divid);		
+		if(obj.style.display=="none"){
+			
+			obj.style.display="";
+			currentshowdiv=divid;
+			
+		}else if(obj.style.display=="block"||obj.style.display==""){
+			
+			obj.style.display="none";
+		}	
+	
+}
+
+</script>
+
+</body>
+</html>

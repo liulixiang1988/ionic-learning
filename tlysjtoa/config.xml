@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config clientversion="4" scope="client" devicetype="all"> 
+  <appid>tlysjtoa</appid>  
+  <appname>铜冠移动OA</appname>  
+  <description>铜冠移动OA</description>  
+  <version>3.3.8</version>  
+  <date>2014-10-20</date>  
+  <homepage src="res:page/index.xhtml"/>  
+  <faultconfig src=""/>  
+  <vendor url="" email=""/>  
+  <access orientation="port" land="false" network="true" gps="true" camera="true" certificate="true"/>  
+  <icon selectedlogo="res:image/selectedlogo.png" main="res:image/main.png" logo="res:image/logo.png"/> 
+</config>

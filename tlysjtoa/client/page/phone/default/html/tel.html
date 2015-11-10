@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+    <style>
+    	.wmz-footer-quick input[type=text]::-webkit-input-placeholder{
+    		color:rgba(255,255,255,.7);
+    	}
+    	ul.wmz-footer-quick li a:before{
+    		color:white;
+    	}
+    </style>
+</head>
+<body>
+
+<div id="section_container">
+	<section data-transition="popup" class="active">
+	    <header class="bar bar-nav animated fast fadeInDown">
+	    	<a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+			<h1 class="title">电话号码查询</h1>
+		</header>
+		 <div class="bar bar-header-secondary" style="border-bottom:0px solid #f2f2f2; align:left;background-color:#116FCF">
+		   <ul class="wmz-footer-quick" style="height:40px;border-bottom:0px solid ;width:99%;float:center;">
+	            <li><input type="text" id="keywords"  placeholder="号码/部门/单位"   style="font-size:16px;color: white;"/></li>
+	            <li><div class="icon icon-search"  onclick="search()"></div></li>
+	        </ul>
+	    </div>
+	    <article class="active" data-scroll="true" >
+		<div class="scroller">
+			<div id="tel"></div>
+			<script type="text/html" id="tel_template">
+			<ul class="table-view animated fadeInRight">
+			<%
+			for(var i=0;i<(ds.ds||[]).length;i++)
+			{
+			%>
+	            	<li class="table-view-cell media">
+		            	<!-- a  href="#"-->
+			            	<div class="media-object pull-left wmz-twolistitem-squre">
+			            		<span class="icon icomoon-user"></span>
+			            	</div>
+			            	<div class="media-body" style="font-size: 14px;padding-right: 5px">
+			            		<%
+			            		if(ds.ds[i].wf_checkaccount.split(',').length>1)
+			            		{
+			            		%>
+			            		<div>号码：<%=ds.ds[i].wf_checkaccount.split(',')[0]%><a class="icon icomoon-phone2" onclick="PhoneUtil.tel('<%=ds.ds[i].wf_checkaccount.split(',')[0]%>')"></a>, <%=ds.ds[i].wf_checkaccount.split(',')[1]%><a class="icon icomoon-phone2" onclick="PhoneUtil.tel('<%=ds.ds[i].wf_checkaccount.split(',')[1]%>')"></a></div>
+			            		<%
+			            		}
+			            		else
+			            		{
+			            			if(ds.ds[i].wf_checkaccount!="")
+			            			{
+			            		%>
+			            		<div>号码：<%=ds.ds[i].wf_checkaccount%><a class="icon icomoon-phone2" onclick="PhoneUtil.tel('<%=ds.ds[i].wf_checkaccount%>')"></a></div>
+			            		<%
+			            		   }
+			            		}
+			            		%>
+			            		<div>单位：<%=ds.ds[i].wf_usedepname%></div>
+			            		<div>使用人：<%=ds.ds[i].wf_usename%></div>			            		
+			            	</div>
+		            	<!--/a-->
+		            	<!--a class="icon icomoon-phone2" style="position:absolute;right:10px;top:12px;color:#116fcf;" onclick="PhoneUtil.tel('<%=ds.ds[i].wf_checkaccount%>')"></a-->
+		            	
+		            </li>
+		       <%
+		      }
+		       %>
+		           </ul>
+		      </script>
+	    </div>
+	</article>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script type="text/javascript" src="../../script/app/tgit.js"></script>
+<script>
+	function search()
+		{
+			if($('#keywords').val()=="")
+			{
+				ExMobiWindow.alert("关键字不能为空");
+				return;
+			}
+			
+			
+			//$('#org option:selected') .val();/
+			//alert("12355");
+				$util.server({
+			url : 'http://tel.jsp',
+			type : 'post',
+			data : 'keywords='+$('#keywords').val(),
+			dataType : 'json',
+			success : function(data){
+			//alert(data);
+			if("error" in data)
+			{
+			 errormsg(data.error);
+			}
+			else
+			{
+			A.tmpl("#tel","tel_template",data,"replace");
+			}
+			 //alert("123");
+			},
+			error : function(data){
+			//alert(data.responseText);
+			errorconfirm('查询异常、请检查网络');
+			},
+			isBlock:true
+			});
+		}
+</script>
+</body>
+</html>

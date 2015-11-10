@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webapp</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet.css">
+    <link rel="stylesheet" href="../../script/ratchet/css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="../../script/agile/css/agile.css">
+    <link rel="stylesheet" href="../../script/app/app.css">
+    <link rel="stylesheet" href="../../script/icomoon/icomoon.css">
+    
+    <link rel="stylesheet" href="../../css/iconoutline.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/wmz.css">
+    <style>
+    	p{color:black;font-size:14px;}
+    </style>
+</head>
+<body>
+
+<div id="section_container">
+	<section id="button_section"  data-transition="popup" class="active">
+	    <header class="bar bar-nav">
+	        <a  data-target="close" href="#"><font class="icon icon-left-nav"></font><font class="icon">返回</font></a>
+	        <h1 class="title">详细内容</h1>
+	        <div class="pull-right">
+	        	<font class="icon icon-more-vertical" id="btn_actionsheet"></font>
+	        	</div>	        
+	    </header>
+		<!--nav class="bar bar-tab animated fadeInUp three">
+	    	<div style="margin-top:4px;">
+	        	<ul class="wmz-footer-quick">
+	                <li><input type="text" placeholder="快速回复全部"/></li>
+	                <li><a class="icon icon-right-nav" onclick="$native.toast('离线版不支持此功能')"></a></li>
+	            </ul>
+	        </div>
+	    </nav-->
+		<article class="active" id="button_article" data-scroll="true">
+	        <div class="scroller">
+	        <div id="divmaildetail">
+	        <script type="text/html" id="gzlxdetail_template">
+	        	<div style="padding:5px;font-size:16px;font-weight:bold"><%
+	                if(Table.Table[0].mailsubject=="" || Table.Table[0].mailsubject==null)
+	                {
+	                %>
+	                                      无标题
+	                <%	                
+	                }	              
+	                %>
+	                <%=Table.Table[0].mailsubject%></div>
+	           <dl class="wmz-detail-info animated fadeInLeft">
+	            	
+	                <dt style="font-size:14px;color:#5CB85C">发件人:<a class="wmz-icon-down wmz-detail-arrowbtn" onClick="toggleObj(this,'wmz-date','wmz-detail-date-font','wmz-detail-date','sjr1','sjr2')"></a></dt>
+	                <dd style="font-size:14px;color:#5CB85C"><%=Table.Table[0].senduserid%><span class="wmz-detail-date animated fadeInDown" id="wmz-date"></span></dd>
+	                <dt id="wmz-detail-date-font" style="display:none;font-size:14px;color:#CECECE" class="animated fadeInUp">日<span class="wmz-space">空</span>期:</dt>
+	                <dd id="wmz-detail-date" style="display:none;font-size:14px;color:#CECECE;" class="animated fadeInUp"><%=Table.Table[0].sendtime%></dd>
+	                <dt id="sjr1" style="display:none;font-size:14px;color:#CECECE;">收件人:</dt>
+	                <dd id="sjr2" style="padding-right: 25px;display:none;font-size:14px;color:#CECECE"><%=Table.Table[0].receiveuserid%></dd>
+	                <%
+	                if(tbatr.tbatr[0].attachid!="0")
+					    	{
+	                
+	                %>
+	                   
+	                <%
+	                        }
+	                %>	                
+	           </dl> 
+	           <%if(tbatr.tbatr[0].attachid!="0")
+	           {
+	           %>
+	            <dl class="wmz-detail-info animated fadeInLeft">
+	            	<dt style="font-size:14px;color:#5CB85C">附<span class="wmz-space">空</span>件:</dt>
+	            	<dd style="font-size:14px;padding-right:10px;">
+	            	<%
+	                for(var i=0;i<(tbatr.tbatr||[]).length;i++)
+					    {
+					    	if(tbatr.tbatr[i].attachid!="0")
+					    	{
+	                %>
+	                <font class="iconoutline iconoutline-attach" style="font-size:14px;vertical-align:middle;"></font><a style="color:#000000;" onclick="openattr('http://gzlxattach.jsp?mailid=<%=tbatr.tbatr[i].attachid%>&filename=<%=tbatr.tbatr[i].attachname%>','<%=tbatr.tbatr[i].attachname%>')">
+	                <%=tbatr.tbatr[i].attachname%>(<%=tbatr.tbatr[i].attachsize%>kb)</a><br>
+	                <%
+	                       }
+	               	   }
+	                %>
+	                </dd>
+	            </dl>
+	            <%
+	            }
+	            %>
+	            <div class="clearfix"></div>
+	            <div class="wmz-detail-content animated fadeInUp"><%=#Table.Table[0].mailcontent%></div>
+	       </script>
+	       </div>
+	        </div>
+	    </article>
+	</section>
+</div>
+<!--- exmobijs --->
+<script type="text/javascript" src="../../script/exmobijs/bridge.js"></script>
+<!-- agile -->
+<script type="text/javascript" src="../../script/agile/js/zepto.js"></script>
+<script type="text/javascript" src="../../script/agile/js/iscroll.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.js"></script>
+<script type="text/javascript" src="../../script/agile/js/agile.exmobi.js"></script>
+<script type="text/javascript" src="../../script/agile/js/touch2mouse.js"></script>
+<script type="text/javascript" src="../../script/agile/js/template-native.js"></script>
+<script type="text/javascript" src="../../script/app/app.js"></script>
+<script type="text/javascript" src="../../script/app/tgit.js"></script>
+<script>
+$('#button_article').on('articleload',function(){
+$util.server({
+url : 'http://maildetail.jsp',
+type : 'post',
+data : 'mailid='+$native.getParameter('mailid'),
+dataType : 'json',
+success : function(data){
+//alert(data);
+if("error" in data)
+{
+ 
+ ExMobiWindow.alert('信息不存在或内容为空');
+}
+else
+{
+ A.tmpl("#divmaildetail","gzlxdetail_template",data,"replace");
+}
+},
+error : function(data){
+ExMobiWindow.alert('请求数据不存在，请重新登录');
+},
+isBlock:true
+});});
+function toggleObj(){
+	if(arguments.length<=0){
+		ExMobiWindow.alert("请传入参数");
+		return;
+	}
+	for(var i=0;i<arguments.length;i++){
+		var obj=document.getElementById(arguments[i]);
+		if(arguments[i].tagName){
+			obj=arguments[i];
+			obj.className.indexOf("wmz-icon-down")>=0?obj.className=obj.className.replace("down","up"):obj.className=obj.className.replace("up","down");
+			continue;
+		}
+		if(obj.style.display=="none"){
+			obj.style.display="";
+			
+		}else if(obj.style.display=="block"||obj.style.display==""){
+			obj.style.display="none";
+		}
+	}
+}
+$('#btn_actionsheet').tap(function(){	    
+	            if($native.getParameter('mailbox')!="发件箱")
+	                    {
+	                    A.Popup.actionsheet([{
+	                text : '回复',
+	                handler : function(){
+	                    
+	                    //A.showToast('离线版不支持邮件回复');
+	                    //alert($native.getParameter('mailid'));z
+	                    if($native.getParameter('mailbox')!="发件箱")
+	                    {
+	                    $native.openWebView("mail_write2.html?mailid="+$native.getParameter('mailid')+"&mailbox="+escape("回复"));
+	                    }
+	                    else
+	                    {
+	                    	ExMobiWindow.alert("发件箱不支持回复");
+	                    }
+	                }
+	            },{
+	                text : '转发',
+	                handler : function(){
+	                    //A.showToast('离线版不支持邮件回复全部');
+	                    
+	                    $native.openWebView("mail_write2.html?mailid="+$native.getParameter('mailid')+"&mailbox="+escape("转发"));
+	                    
+	                    
+	                }
+	            },{
+	                text : '删除',
+	                handler : function(){
+	                    ExMobiWindow.confirm('确定要删除吗？',delmail,null);	                    
+	                }
+	            }
+	            ]);
+	                    }
+	                    else
+	                    {
+	                    	A.Popup.actionsheet([{
+	                text : '转发',
+	                handler : function(){
+	                    //A.showToast('离线版不支持邮件回复全部');
+	                    
+	                    $native.openWebView("mail_write2.html?mailid="+$native.getParameter('mailid')+"&mailbox="+escape("转发"));
+	                    
+	                    
+	                }
+	            },{
+	                text : '删除',
+	                handler : function(){
+	                	ExMobiWindow.confirm('确定要删除吗？',delmail,null);
+	                }
+	            }
+	            ]);
+	                    }
+	});
+
+	function openattr(url,filename)
+	{
+		//alert(filename);
+		//ClientUtil.download(url,"res:temp/"+filename, sucessFun,errorFun,true)
+		openfile(url,filename);
+	}
+	function delmail()
+	{
+		$util.server({
+		url : 'http://delmail.jsp',
+		type : 'post',
+		data : 'mailid='+$native.getParameter('mailid'),
+		dataType : 'json',
+		success : function(data){
+		//alert(data);
+		if("error" in data)
+		{
+		 alert('删除失败，信息不存在或会话过期');
+		$native.openWebView('mail.html?mailbox=收件箱&datatype=2');
+		}
+		else
+		{
+		 if(data.result=="ok")
+		 {
+		 	//删除成功
+		 	alert('删除成功');
+		 	$native.openWebView('mail.html?mailbox=收件箱&datatype=2');
+		 }
+		 else
+		 {
+		 	//删除失败
+		 	ExMobiWindow.alert('删除失败，请联系管理员查看');
+		 }
+		}
+		},
+		error : function(data){
+		ExMobiWindow.alert('请求数据不存在，请重新登录');
+		}
+		});
+	}
+</script>
+</body>
+</html>

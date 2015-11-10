@@ -1,0 +1,125 @@
+<!-- ExMobi UIXML(XHTML)文件 -->
+<html>
+	<head>
+		<meta content="charset=utf-8"/>
+		<title>查看文件</title>
+		<link rel="stylesheet" type="text/css" href="res:css/global.css" />
+		<link rel="stylesheet" type="text/css" href="res:css/control.css" />
+		<script src="res:script/exmobijs/bridge.js"/>
+		<script src="res:script/exmobijs/browser.js"/>
+		<script src="res:script/exmobijs/base.js"/>
+		<script src="res:script/exmobijs/utility.js"/>
+		<script src="res:script/exmobijs/app.js"/>
+		<script src="res:script/exmobijs/db.js"/>
+		<script src="res:script/exmobijs/validate.js"/>
+		<script src="res:script/exmobijs/tree.js"/>
+		<script src="res:script/exmobijs/weibo.js"/>
+		<script src="res:script/exmobijs/calendar.js"/>
+		<script src="res:script/exmobijs/xpath.js"/>
+		<script src="res:script/exmobijs/date.js"/>
+		<script src="res:script/exmobijs/xlocation.js"/>
+		<script src="res:script/exmobijs/json.js"/>
+		
+		<script>
+		<![CDATA[
+		var entitycode;
+			function loaddata()
+			{
+				
+		      //var  data = "businessid="+window.getParameter("businessid")+"&flowid="+window.getParameter("flowid")+"&nodeid="+window.getParameter("nodeid")+"&bfloworderid="+window.getParameter("bfloworderid")+"&messageid="+window.getParameter("messageid")+"&userid="+window.getParameter("userid");
+		      var  data = "businessid="+window.getParameter("businessid")+"&bforderid="+window.getParameter("bforderid")+"&entitycode="+window.getParameter("entitycode");
+		      //alert(data);
+			  entitycode=window.getParameter("entitycode");		  
+			   $a.go("http://getgwzwandcontent.jsp", "post", data, onSuccess, null, '{"Content-Type": "application/x-www-form-urlencoded"}', true);	
+			}
+			function onSuccess(data)
+			{
+				var json=data.responseText.toJSON();
+				$("ihead2").provide(json.gw.gw).show();
+				//alert(data.responseText);
+				//附件处理
+				var attach=json.attr.attr;
+				var attr=[];
+				if(attach.length>0)
+				{
+					if(attach[0].attachid!="")
+					{
+						var attcount=0;
+						var previewext="doc, docx, ppt, pptx, xls, xlsx, rtf, pdf, ceb, sep,txt,png,jpg,bmp,gif";
+						var optionsvalue="10000";
+						for(var k=0;k<attach.length;k++)
+						{
+							if(attach[k].attachid!="")
+							{
+								attcount++;
+							}
+						}
+						attr.append('<div style="padding-top:5px;padding-bottom:5px;"><a href="javascript:showattachfiles()">相关附件：共 '+attcount+' 个，点击查看</a></div><fileset id="filesetid" hidetitle="true"   style="title-background-color:#228B22;background-color:#ffffff;color:#333333;background-click-color:#98FB98" caption="业务相关附件('+attach.length+'个)" size="1" >');
+						var url="";
+						for(var i=0;i<attach.length;i++)
+						{
+							if(previewext.indexOf(attach[i].attachname.toLowerCase().split(".")[attach[i].attachname.split(".").length-1])>=0)
+							{
+								optionsvalue="010";
+							}								
+							else
+							{
+								optionsvalue="100";
+							}							
+								
+							if(attach[i].attrtype=="gwzw")
+							{
+								if(entitycode=="")
+								{
+									url="http://tgit.tlys/mobilegetoafile.aspx?businessid="+attach[i].attachnewname+'|'+attach[i].attachid+'|';
+								}
+								else
+								{
+									url="http://www.tlys/mobilegetoafile.aspx?businessid="+attach[i].attachnewname+'|'+attach[i].attachid+'|';
+								}
+								
+							}
+							else
+							{
+								if(entitycode=="")
+								{
+									url="http://tgit.tlys/mobilegetoafile.aspx?businessid="+attach[i].attachnewname+'|'+attach[i].attachid+'|'+attach[i].attachnewname;
+								}
+								else
+								{
+									url="http://www.tlys/mobilegetoafile.aspx?businessid="+attach[i].attachnewname+'|'+attach[i].attachid+'|'+attach[i].attachnewname;
+								}
+								
+							}
+							if(attach[i].attachid!="")
+							{
+							attr.append('<item text="'+attach[i].attachname+'" options="'+optionsvalue+'" id="item'+i+'" href="'+url+'" />');
+							}
+						}
+						attr.append('</fileset><hr/>');
+						
+					}
+					$("attach2").html(attr.toString());
+				}
+				
+			}
+			function showattachfiles()
+			{
+				//alert("f");
+				document.getElementById("filesetid").style.display=((document.getElementById("filesetid").style.display=="none")?"block":"none");
+			}
+			
+		]]>
+		</script>
+	</head>
+	<body onload="loaddata()">
+		<div id="ihead2" class="container padding-large" style="display:">
+			<font class="label-left">主题:</font><font class="label-right">${attribute1}</font>
+			<hr/>
+			<font class="label-left">时间:</font><font class="label-right">${stime}</font>
+		<hr/>
+		</div>
+		<div id="attach2" style="display:;padding:5px;">
+		</div>
+	</body>
+</html>

@@ -7,10 +7,10 @@ function getProgressbar(){
 
 function setSangfor(){
        var vpnInfo = new SangforInfo();
-       vpnInfo.vpnIp ='218.22.191.77';
+       vpnInfo.vpnIp ='xxx.xx.xxx.xxx';
        vpnInfo.vpnPort='443';
-       vpnInfo.authName='tgittest';
-       vpnInfo.authPassword='tgittgit5861216';
+       vpnInfo.authName='xx';
+       vpnInfo.authPassword='xxxx';
        vpnInfo.certFile='';
        vpnInfo.certPassword='';
        SangforUtil.saveSangforInfo(vpnInfo);       
@@ -97,7 +97,8 @@ function clientUpdateCallBack(code){
 	}
 
 function stopSangforVpn(){
-    if(SangforUtil.getSangforVpnStatus()!=0)
+
+    if(SangforUtil.getSangforVpnStatus()!=0)
         return;
     SangforUtil.stopSangforVpn(stopVpnCallBack);
 
